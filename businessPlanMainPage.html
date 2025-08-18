@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix Prime Interactive - Business Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- New "creepy" font: Nosifier -->
+    <link href="https://fonts.googleapis.com/css2?family=Nosifier&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Deeper Black, Light Grey Text, and a Glowing Red Accent -->
+    <style>
+        body {
+            font-family: 'Nosifier', cursive; /* Use the creepy font for headings and main text */
+            background-color: #050505; /* A very dark, almost black background */
+            color: #E5E7EB; /* Light gray for readability */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Nosifier', cursive;
+            color: #EF4444; /* Set headings to the primary red color */
+            /* Reduced glow effect */
+            text-shadow: 0 0 1px #E0F2FE, 0 0 3px #E0F2FE, 0 0 5px #E0F2FE; 
+        }
+        p, li, a, button, span {
+            font-family: 'Inter', sans-serif; /* Use a readable font for body text */
+            color: #D1D5DB; /* Slightly darker than E5E7EB for contrast */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        .nav-link.active {
+            background-color: #1a1a1a;
+            color: #EF4444; /* Accent Red */
+            border-left-color: #EF4444;
+            /* Reduced glow on active link for consistency */
+            text-shadow: 0 0 3px #E0F2FE; 
+        }
+        .nav-link:hover {
+            background-color: #1a1a1a;
+            color: #EF4444;
+            /* Reduced glow on hover for consistency */
+            text-shadow: 0 0 3px #E0F2FE;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card {
+            background-color: #0F0F0F; /* Slightly lighter than background */
+            border: 1px solid #242424;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            border-bottom-color: #EF4444;
+            color: #EF4444;
+            text-shadow: 0 0 2px #E0F2FE; /* Reduced glow on tabs */
+        }
+        .tab-button:not(.active) {
+            color: #6B7280;
+        }
+        .tab-button:hover {
+            color: #EF4444;
+            text-shadow: 0 0 2px #E0F2FE;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: #0F0F0F;
+            border: 3px solid #EF4444;
+            box-shadow: 0 0 3px #E0F2FE; /* Reduced glow on timeline dots */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 450px;
+        }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-full md:w-64 bg-[#0A0A0A] border-r border-[#1a1a1a] p-4 md:p-6 md:fixed md:h-full">
+        <div class="flex items-center mb-8">
+            <div class="w-10 h-10 bg-gradient-to-br from-[#EF4444] to-[#DC2626] rounded-lg flex items-center justify-center mr-3">
+                <span class="text-gray-900 font-bold text-xl">P</span>
+            </div>
+            <h1 class="text-xl font-bold">Phoenix Prime</h1>
+        </div>
+        <nav id="navigation" class="space-y-2">
+            <a href="#studio" class="nav-link active flex items-center p-3 rounded-lg font-medium">
+                <span class="mr-3">
+                    <canvas class="nav-icon" width="20" height="20" data-icon="studio"></canvas>
+                </span> The Studio
+            </a>
+            <a href="#game" class="nav-link flex items-center p-3 rounded-lg font-medium">
+                <span class="mr-3">
+                    <canvas class="nav-icon" width="20" height="20" data-icon="game"></canvas>
+                </span> The Game
+            </a>
+            <a href="#market" class="nav-link flex items-center p-3 rounded-lg font-medium">
+                <span class="mr-3">
+                    <canvas class="nav-icon" width="20" height="20" data-icon="market"></canvas>
+                </span> The Market
+            </a>
+            <a href="#plan" class="nav-link flex items-center p-3 rounded-lg font-medium">
+                <span class="mr-3">
+                    <canvas class="nav-icon" width="20" height="20" data-icon="plan"></canvas>
+                </span> The Plan
+            </a>
+            <a href="#financials" class="nav-link flex items-center p-3 rounded-lg font-medium">
+                <span class="mr-3">
+                    <canvas class="nav-icon" width="20" height="20" data-icon="financials"></canvas>
+                </span> The Financials
+            </a>
+        </nav>
+        <div class="absolute bottom-4 left-4 right-4 text-center text-xs text-gray-500">
+            <p>&copy; 2025 Phoenix Prime Interactive</p>
+            <p>Confidential Business Plan</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 md:ml-64 p-6 md:p-10">
+        
+        <!-- Section: The Studio -->
+        <section id="studio" class="content-section active">
+            <h2 class="text-4xl font-bold mb-4">The Studio: Vision & Identity</h2>
+            <p class="text-lg mb-8 text-gray-400">Phoenix Prime Interactive is founded on the principles of resilience, quality, and innovation. We are a fully remote studio dedicated to crafting intellectually challenging and emotionally resonant games. This section outlines the core philosophy that drives our creative and business decisions.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">Mission Statement</h3>
+                    <p class="text-gray-300">To craft unforgettable interactive entertainment that inspires, challenges, and connects players worldwide, embodying the spirit of intellectual rebirth and achieving the highest quality.</p>
+                </div>
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">Vision Statement</h3>
+                    <p class="text-gray-300">To be a globally recognized leader in innovative video game development, pushing the boundaries of interactive storytelling and gameplay, demonstrating that resilience and continuous improvement make new heights of achievement possible.</p>
+                </div>
+                <div class="card p-6 rounded-xl md:col-span-2 lg:col-span-1">
+                    <h3 class="text-xl font-bold mb-3">Core Values</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-1">
+                        <li>Creativity & Innovation</li>
+                        <li>Uncompromising Quality</li>
+                        <li>Player-Centric Design</li>
+                        <li>Resilience & Improvement</li>
+                        <li>Inclusivity & Empowerment</li>
+                    </ul>
+                </div>
+            </div>
+
+             <div class="card p-6 rounded-xl mt-8">
+                <h3 class="text-2xl font-bold mb-4">Founder & Leadership</h3>
+                <div class="flex flex-col md:flex-row items-start">
+                    <div class="md:mr-6 mb-4 md:mb-0">
+                         <div class="w-32 h-32 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center">
+                            <span class="text-6xl font-bold text-gray-500">J</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-3">James Jukiewicz, Founder & CEO</h4>
+                        <p class="text-[#EF4444] font-medium mb-3">Interim Creative Director, Lead Developer, Marketing Lead</p>
+                        <p class="text-gray-300 mb-2">James brings a robust background as a versatile game programmer with extensive experience in development, integration, and design. Holding an MFA in Game Development and a BS in Computer Science, he combines a strong academic foundation with practical industry experience at studios like Tubby Boy Studios and Tier 21 Studios.</p>
+                        <p class="text-gray-300">Proficient in C#, C++, Unreal Engine, and Unity, James has a proven track record of leading teams, optimizing code, and managing complex development pipelines. His comprehensive skill set and personal drive to explore profound psychological themes make him uniquely positioned to lead Phoenix Prime Interactive and deliver the ambitious vision of "Darkness From Within."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: The Game -->
+        <section id="game" class="content-section">
+            <h2 class="text-4xl font-bold mb-4">The Game: Darkness From Within</h2>
+            <p class="text-lg mb-8 text-gray-400">Our flagship title is a Psychological Action RPG that blends intense, skill-based combat with a deep, character-driven narrative. The game's core innovation is its dynamic, evolving art style, which serves as a visual metaphor for the protagonist's journey of healing and self-discovery.</p>
+
+            <div class="card rounded-xl p-6 mb-8">
+                <div class="border-b border-[#242424] mb-4">
+                    <nav id="game-tabs" class="-mb-px flex space-x-6" aria-label="Tabs">
+                        <button class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg" data-tab="concept">Concept & USP</button>
+                        <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg" data-tab="mechanics">Gameplay Mechanics</button>
+                        <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg" data-tab="art">Art & Story</button>
+                    </nav>
+                </div>
+
+                <div id="tab-content">
+                    <div id="concept-content" class="tab-pane active">
+                        <h3 class="text-2xl font-bold mb-3">A Journey from Shadow to Light</h3>
+                        <p class="text-gray-300 mb-4">"Darkness From Within" is a profound journey into the human psyche. Players guide a former soldier battling his inner demons as his world literally shifts from darkness to light. It's a metaphor for healing and rediscovery, expressed through challenging action combat and an evolving environment.</p>
+                        <div class="bg-[#1a1a1a] p-4 rounded-lg border border-dashed border-[#EF4444]">
+                            <h4 class="font-bold mb-1">Unique Selling Proposition (USP)</h4>
+                            <p class="text-gray-300 mt-1">A groundbreaking **dynamic art style evolution** that mirrors the protagonist's psychological journey. The world visually transforms from an oppressive, 'Dark Souls'-esque grimness to a vibrant, 'Final Fantasy VII Remake'-like aesthetic as players confront and overcome internal fears, providing a uniquely immersive and emotionally resonant experience.</p>
+                        </div>
+                    </div>
+                    <div id="mechanics-content" class="tab-pane hidden">
+                        <h3 class="text-2xl font-bold mb-3">Intellectual & Skill-Based Combat</h3>
+                        <p class="text-gray-300 mb-4">The core gameplay revolves around challenging, turn-based combat against manifestations of trauma. Player abilities evolve from military skills to psychological strengths, symbolizing self-reliance and healing.</p>
+                         <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>**Turn-Based Tactical Combat:** Fight against a limited set of core trauma monsters with significant variations, requiring strategic thinking.</li>
+                            <li>**Sanity/Resolve System:** A core survival mechanic where low Sanity triggers visual and auditory hallucinations, impacting combat effectiveness.</li>
+                            <li>**Mindscape Generation:** Procedural generation and modular construction create high replayability through varied encounters and environments.</li>
+                            <li>**Emotional Stat System:** Choices impact stats like Resolve, Confidence, and Empathy, influencing combat and narrative outcomes.</li>
+                             <li>**Multiplayer Co-op:** A planned major free update will allow 2-3 players to team up for the main campaign, similar to *Baldur's Gate 3*.</li>
+                        </ul>
+                    </div>
+                    <div id="art-content" class="tab-pane hidden">
+                        <h3 class="text-2xl font-bold mb-3">A World Reborn</h3>
+                        <p class="text-gray-300 mb-4">The narrative follows Lucien, a retired soldier who withdraws into his own mind. The game's primary visual style is a stylized 3D aesthetic inspired by modern *Dragon Quest* titles, featuring expressive characters and vibrant colors.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-bold mb-1">Initial State: The Darkness</h4>
+                                <p class="text-gray-300">The game begins with a stark, oppressive art style. Environments are muted, claustrophobic, and filled with a sense of dread, drawing inspiration from the grim aesthetics of *Dark Souls*.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Final State: The Light</h4>
+                                <p class="text-gray-300">As players defeat bosses, the world visually transforms. Colors become vibrant, details sharpen, and the aesthetic evolves to be closer to the breathtaking realism and dynamic lighting of *Final Fantasy VII Remake*.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Section for Visuals and Concept Art -->
+            <div class="card p-6 rounded-xl">
+                <h3 class="text-2xl font-bold mb-4 text-center">Visuals & Concept Art</h3>
+                <p class="text-lg text-center mb-6 text-gray-400">This section is where you would showcase the game's aesthetic through concept art and in-game visuals. This helps investors and publishers visualize the final product's quality and style.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Placeholder for Concept Art -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
+                        <p class="text-gray-500 text-center font-bold">Concept Art: Character & Environment</p>
+                    </div>
+                    <!-- Placeholder for Character Sheet -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
+                        <p class="text-gray-500 text-center font-bold">Character Model Sheet</p>
+                    </div>
+                    <!-- Placeholder for Gameplay GIF -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
+                        <p class="text-gray-500 text-center font-bold">In-Game Screenshot or Gameplay GIF</p>
+                    </div>
+                </div>
+            </div>
+            <!-- End of New Section -->
+        </section>
+
+        <!-- Section: The Market -->
+        <section id="market" class="content-section">
+            <h2 class="text-4xl font-bold mb-4">The Market: Opportunity & Audience</h2>
+            <p class="text-lg mb-8 text-gray-400">The global video game industry is a massive, growing market valued at over $179 billion in 2024. Within this landscape, the indie sector is thriving, with a strong appetite for high-quality, innovative experiences on PC and Console platforms, which represent a combined market of nearly $94 billion.</p>
+            
+            <div class="card p-6 rounded-xl mb-8">
+                <h3 class="text-2xl font-bold mb-4 text-center">Platform Revenue Focus (2024)</h3>
+                <div class="chart-container">
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">Target Demographics</h3>
+                    <p class="text-gray-300">Our primary audience is the **Core Gaming Audience (18-45+)** on PC and Console. Initially, we will focus on **English-speaking markets** (North America, UK, Australia) before expanding globally with professional localization.</p>
+                </div>
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold mb-3">Target Psychographics</h3>
+                    <p class="text-gray-300">We are targeting "Core Gamers" and "Indie Aficionados" who demand intellectual engagement, value unique gameplay, prioritize immersive narratives, and appreciate high artistic and technical polish. They are active in online communities and seek meaningful experiences.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: The Plan -->
+        <section id="plan" class="content-section">
+            <h2 class="text-4xl font-bold mb-4">The Plan: Development & Launch</h2>
+            <p class="text-lg mb-8 text-gray-400">Our 36-month plan provides a robust runway for quality development, a strategic launch, and long-term studio sustainability. The core game, "Darkness From Within," will be developed and launched within the first 15 months, followed by extensive post-launch support and pre-production for our next title.</p>
+            
+            <div class="card p-6 rounded-xl">
+                <h3 class="text-2xl font-bold mb-6">36-Month Development Roadmap</h3>
+                <div class="relative pl-20 border-l-2 border-dashed border-[#242424]">
+                    <!-- Timeline Item -->
+                    <div class="timeline-item mb-10">
+                        <h4 class="font-bold text-lg mb-1">Phase 1: Pre-Production (Months 1-3)</h4>
+                        <p class="text-gray-300">Finalize the Game Design Document, establish the core art style, and develop a playable vertical slice to validate core combat and the art style transition mechanic.</p>
+                    </div>
+                    <!-- Timeline Item -->
+                    <div class="timeline-item mb-10">
+                        <h4 class="font-bold text-lg mb-1">Phase 2: Production (Months 4-12)</h4>
+                        <p class="text-gray-300">Intensive asset creation, core systems implementation, and content population to make the game playable from start to finish. Achieve Alpha and Content Complete milestones.</p>
+                    </div>
+                    <!-- Timeline Item -->
+                    <div class="timeline-item mb-10">
+                        <h4 class="font-bold text-lg mb-1">Phase 3: Beta, Polish & Launch (Months 13-15)</h4>
+                        <p class="text-gray-300">Aggressive bug fixing, comprehensive balancing, performance optimization, and final polish. Submit for platform certification and prepare for a Month 15 launch.</p>
+                    </div>
+                    <!-- Timeline Item -->
+                    <div class="timeline-item">
+                        <h4 class="font-bold text-lg mb-1">Phase 4: Post-Launch & Future Growth (Months 16-36)</h4>
+                        <p class="text-gray-300">Provide immediate launch support, release frequent free content updates (including multiplayer co-op), develop paid expansions, and begin pre-production for the next title.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: The Financials -->
+        <section id="financials" class="content-section">
+            <h2 class="text-4xl font-bold mb-4">The Financials: Investment & Projections</h2>
+            <p class="text-lg mb-8 text-gray-400">We are seeking **$2,521,806** to fund 3 years of operations. This provides a robust runway to develop and launch "Darkness From Within" within 15 months, deliver significant post-launch content, and ensure studio sustainability while awaiting profitability in Year 2.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-2xl font-bold mb-4 text-center">Funding Allocation</h3>
+                    <div class="chart-container" style="height:350px; max-height:350px;">
+                        <canvas id="fundingChart"></canvas>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-xl flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-4">Key Financial Points</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">1</div>
+                            <div>
+                                <h4 class="font-bold mb-1">Personnel is Key</h4>
+                                <p class="text-gray-300">The majority of funding (70.9%) is allocated to personnel, securing a talented core team for the full 3-year period.</p>
+                            </div>
+                        </li>
+                         <li class="flex items-start">
+                            <div class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">2</div>
+                            <div>
+                                <h4 class="font-bold mb-1">Lean Operations</h4>
+                                <p class="text-gray-300">A remote-first model keeps operational overheads low (12.1%), maximizing development resources.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">3</div>
+                            <div>
+                                <h4 class="font-bold mb-1">Path to Profitability</h4>
+                                <p class="text-gray-300">Projections indicate profitability in Year 2, post-launch, with a strong positive cash flow ensuring long-term sustainability and funding for future projects.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card p-6 rounded-xl mt-8">
+                <h3 class="text-2xl font-bold mb-4 text-center">3-Year Financial Projections Overview</h3>
+                 <div class="chart-container">
+                    <canvas id="projectionsChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navigationLinks = document.querySelectorAll('#navigation .nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            // --- Navigation Logic ---
+            const setActiveLink = (hash) => {
+                navigationLinks.forEach(link => {
+                    link.classList.toggle('active', link.hash === hash);
+                });
+                contentSections.forEach(section => {
+                    section.classList.toggle('active', `#${section.id}` === hash);
+                });
+            };
+
+            navigationLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetHash = this.hash;
+                    window.location.hash = targetHash;
+                    setActiveLink(targetHash);
+                });
+            });
+
+            const initialHash = window.location.hash || '#studio';
+            setActiveLink(initialHash);
+
+            // --- Game Section Tabs Logic ---
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    button.classList.add('active');
+
+                    const tabId = button.getAttribute('data-tab');
+                    tabPanes.forEach(pane => {
+                        pane.classList.toggle('hidden', pane.id !== `${tabId}-content`);
+                        pane.classList.toggle('active', pane.id === `${tabId}-content`);
+                    });
+                });
+            });
+
+            // --- Canvas Icon Drawing ---
+            const navIcons = document.querySelectorAll('.nav-icon');
+            const drawIcon = (canvas, type) => {
+                const ctx = canvas.getContext('2d');
+                ctx.strokeStyle = '#EF4444';
+                ctx.lineWidth = 1.5;
+                ctx.clearRect(0, 0, 20, 20);
+
+                switch (type) {
+                    case 'studio': // Building icon
+                        ctx.strokeRect(3, 8, 14, 9);
+                        ctx.beginPath();
+                        ctx.moveTo(3, 8);
+                        ctx.lineTo(10, 3);
+                        ctx.lineTo(17, 8);
+                        ctx.stroke();
+                        ctx.strokeRect(8, 12, 4, 5);
+                        break;
+                    case 'game': // Gamepad icon
+                        ctx.strokeRect(2, 6, 16, 10);
+                        ctx.beginPath();
+                        ctx.moveTo(6, 6);
+                        ctx.lineTo(6, 3);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(13, 10);
+                        ctx.arc(13, 11, 1, 0, 2 * Math.PI);
+                        ctx.moveTo(15, 12);
+                        ctx.arc(15, 13, 1, 0, 2 * Math.PI);
+                        ctx.stroke();
+                        break;
+                    case 'market': // Chart icon
+                        ctx.beginPath();
+                        ctx.moveTo(3, 17);
+                        ctx.lineTo(3, 5);
+                        ctx.lineTo(8, 9);
+                        ctx.lineTo(13, 7);
+                        ctx.lineTo(17, 12);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(3,17);
+                        ctx.lineTo(17,17);
+                        ctx.stroke();
+                        break;
+                    case 'plan': // Roadmap/list icon
+                        ctx.beginPath();
+                        ctx.moveTo(3, 5);
+                        ctx.lineTo(17, 5);
+                        ctx.moveTo(3, 10);
+                        ctx.lineTo(17, 10);
+                        ctx.moveTo(3, 15);
+                        ctx.lineTo(12, 15);
+                        ctx.stroke();
+                        break;
+                    case 'financials': // Dollar sign icon
+                        ctx.font = 'bold 16px sans-serif';
+                        ctx.fillStyle = '#EF4444';
+                        ctx.fillText('$', 6, 15);
+                        break;
+                }
+            };
+            navIcons.forEach(canvas => drawIcon(canvas, canvas.dataset.icon));
+
+            // --- Chart.js Initializations ---
+            const chartFontColor = '#D1D5DB';
+            const chartGridColor = '#242424';
+            const chartAccentColor = '#EF4444';
+            const chartSecondaryColor = '#DC2626';
+            const chartTertiaryColor = '#4B5563';
+
+            // Market Chart
+            const marketCtx = document.getElementById('marketChart');
+            if (marketCtx) {
+                new Chart(marketCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['PC Gaming', 'Console Gaming'],
+                        datasets: [{
+                            label: 'Market Size (in Billions USD)',
+                            data: [43, 51],
+                            backgroundColor: [chartAccentColor, chartSecondaryColor],
+                            borderColor: [chartAccentColor, chartSecondaryColor],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false },
+                            title: { display: true, text: 'PC vs Console Market Revenue (2024)', color: chartFontColor, font: { size: 16 } },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `$${context.raw} Billion`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Revenue (Billions USD)', color: chartFontColor },
+                                grid: { color: chartGridColor },
+                                ticks: { color: chartFontColor }
+                            },
+                            y: {
+                                grid: { display: false },
+                                ticks: { color: chartFontColor, font: { size: 14 } }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Funding Chart
+            const fundingCtx = document.getElementById('fundingChart');
+            if (fundingCtx) {
+                new Chart(fundingCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Personnel Costs', 'Operational Overheads', 'Contingency Fund', 'Marketing & Launch'],
+                        datasets: [{
+                            label: 'Funding Allocation',
+                            data: [1786875, 306000, 328931.25, 100000],
+                            backgroundColor: [chartAccentColor, chartSecondaryColor, chartTertiaryColor, '#6B7280'],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom', labels: { color: chartFontColor } },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        const value = context.raw;
+                                        const percentage = ((value / total) * 100).toFixed(1);
+                                        return `${context.label}: $${value.toLocaleString()} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Projections Chart
+            const projectionsCtx = document.getElementById('projectionsChart');
+            if (projectionsCtx) {
+                new Chart(projectionsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Year 1', 'Year 2', 'Year 3'],
+                        datasets: [
+                            {
+                                label: 'Total Operating Expenses',
+                                data: [697625, 797625, 697625],
+                                backgroundColor: chartTertiaryColor,
+                                order: 2
+                            },
+                            {
+                                label: 'Net Revenue',
+                                data: [0, 1968187.50, 1162087.50],
+                                borderColor: chartAccentColor,
+                                backgroundColor: chartAccentColor,
+                                type: 'line',
+                                tension: 0.1,
+                                order: 1,
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top', labels: { color: chartFontColor } },
+                             tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                stacked: true,
+                                grid: { display: false },
+                                ticks: { color: chartFontColor }
+                            },
+                            y: {
+                                stacked: true,
+                                beginAtZero: true,
+                                title: { display: true, text: 'Expenses (USD)', color: chartFontColor },
+                                grid: { color: chartGridColor },
+                                ticks: { 
+                                    color: chartFontColor,
+                                    callback: function(value) {
+                                        return '$' + (value / 1000) + 'K';
+                                    }
+                                }
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                beginAtZero: true,
+                                title: { display: true, text: 'Revenue (USD)', color: chartAccentColor },
+                                grid: { drawOnChartArea: false },
+                                ticks: { 
+                                    color: chartAccentColor,
+                                     callback: function(value) {
+                                        return '$' + (value / 1000000).toFixed(1) + 'M';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
