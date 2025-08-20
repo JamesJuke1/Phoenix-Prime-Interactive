@@ -23,7 +23,7 @@
             font-family: 'Nosifier', cursive;
             color: #EF4444; /* Set headings to the primary red color */
             /* Reduced glow effect */
-            text-shadow: 0 0 1px #E0F2FE, 0 0 3px #E0F2FE, 0 0 5px #E0F2FE; 
+            text-shadow: 0 0 1px #E0F2FE, 0 0 3px #E0F2FE, 0 0 5px #E0F2FE;
         }
         p, li, a, button, span {
             font-family: 'Inter', sans-serif; /* Use a readable font for body text */
@@ -38,7 +38,7 @@
             color: #EF4444; /* Accent Red */
             border-left-color: #EF4444;
             /* Reduced glow on active link for consistency */
-            text-shadow: 0 0 3px #E0F2FE; 
+            text-shadow: 0 0 3px #E0F2FE;
         }
         .nav-link:hover {
             background-color: #1a1a1a;
@@ -99,6 +99,55 @@
             height: 40vh;
             max-height: 450px;
         }
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #0A0A0A;
+            border: 2px solid #242424;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #D1D5DB;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #0F0F0F;
+            border: 1px solid #242424;
+            border-radius: 8px;
+            color: #E5E7EB;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #EF4444;
+            box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+        }
+        .investor-list li {
+            animation: fadeIn 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body class="flex flex-col md:flex-row min-h-screen">
@@ -137,6 +186,11 @@
                     <canvas class="nav-icon" width="20" height="20" data-icon="financials"></canvas>
                 </span> The Financials
             </a>
+            <a href="#investment" class="nav-link flex items-center p-3 rounded-lg font-medium">
+                <span class="mr-3">
+                    <canvas class="nav-icon" width="20" height="20" data-icon="investment"></canvas>
+                </span> Investment Tiers
+            </a>
         </nav>
         <div class="absolute bottom-4 left-4 right-4 text-center text-xs text-gray-500">
             <p>&copy; 2025 Phoenix Prime Interactive</p>
@@ -173,11 +227,11 @@
                 </div>
             </div>
 
-             <div class="card p-6 rounded-xl mt-8">
+            <div class="card p-6 rounded-xl mt-8">
                 <h3 class="text-2xl font-bold mb-4">Founder & Leadership</h3>
                 <div class="flex flex-col md:flex-row items-start">
                     <div class="md:mr-6 mb-4 md:mb-0">
-                         <div class="w-32 h-32 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center">
+                        <div class="w-32 h-32 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center">
                             <span class="text-6xl font-bold text-gray-500">J</span>
                         </div>
                     </div>
@@ -217,12 +271,12 @@
                     <div id="mechanics-content" class="tab-pane hidden">
                         <h3 class="text-2xl font-bold mb-3">Intellectual & Skill-Based Combat</h3>
                         <p class="text-gray-300 mb-4">The core gameplay revolves around challenging, turn-based combat against manifestations of trauma. Player abilities evolve from military skills to psychological strengths, symbolizing self-reliance and healing.</p>
-                         <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
                             <li>**Turn-Based Tactical Combat:** Fight against a limited set of core trauma monsters with significant variations, requiring strategic thinking.</li>
                             <li>**Sanity/Resolve System:** A core survival mechanic where low Sanity triggers visual and auditory hallucinations, impacting combat effectiveness.</li>
                             <li>**Mindscape Generation:** Procedural generation and modular construction create high replayability through varied encounters and environments.</li>
                             <li>**Emotional Stat System:** Choices impact stats like Resolve, Confidence, and Empathy, influencing combat and narrative outcomes.</li>
-                             <li>**Multiplayer Co-op:** A planned major free update will allow 2-3 players to team up for the main campaign, similar to *Baldur's Gate 3*.</li>
+                            <li>**Multiplayer Co-op:** A planned major free update will allow 2-3 players to team up for the main campaign, similar to *Baldur's Gate 3*.</li>
                         </ul>
                     </div>
                     <div id="art-content" class="tab-pane hidden">
@@ -268,6 +322,7 @@
         <section id="market" class="content-section">
             <h2 class="text-4xl font-bold mb-4">The Market: Opportunity & Audience</h2>
             <p class="text-lg mb-8 text-gray-400">The global video game industry is a massive, growing market valued at over $179 billion in 2024. Within this landscape, the indie sector is thriving, with a strong appetite for high-quality, innovative experiences on PC and Console platforms, which represent a combined market of nearly $94 billion.</p>
+ 
             
             <div class="card p-6 rounded-xl mb-8">
                 <h3 class="text-2xl font-bold mb-4 text-center">Platform Revenue Focus (2024)</h3>
@@ -332,6 +387,7 @@
                         <canvas id="fundingChart"></canvas>
                     </div>
                 </div>
+                
                 <div class="card p-6 rounded-xl flex flex-col justify-center">
                     <h3 class="text-2xl font-bold mb-4">Key Financial Points</h3>
                     <ul class="space-y-4">
@@ -342,7 +398,7 @@
                                 <p class="text-gray-300">The majority of funding (70.9%) is allocated to personnel, securing a talented core team for the full 3-year period.</p>
                             </div>
                         </li>
-                         <li class="flex items-start">
+                        <li class="flex items-start">
                             <div class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">2</div>
                             <div>
                                 <h4 class="font-bold mb-1">Lean Operations</h4>
@@ -362,296 +418,641 @@
 
             <div class="card p-6 rounded-xl mt-8">
                 <h3 class="text-2xl font-bold mb-4 text-center">3-Year Financial Projections Overview</h3>
-                 <div class="chart-container">
+                   <div class="chart-container">
                     <canvas id="projectionsChart"></canvas>
                 </div>
             </div>
 
         </section>
+        
+        <!-- Section: Investment Tiers -->
+        <section id="investment" class="content-section">
+            <h2 class="text-4xl font-bold mb-4">Investment Tiers: Partner with Us</h2>
+            <p class="text-lg mb-8 text-gray-400">We invite you to be a part of our journey and share in the success of "Darkness From Within." To accommodate all levels of support, we have created several investment tiers, from our new Supporter Tier to the exclusive Platinum Tier.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Supporter Tier -->
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Supporter" data-amount="100" data-physical-rewards="false">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Supporter Tier ($100)</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                            <li>Your name or a provided name in the game's credits as a "Supporter."</li>
+                            <li>A personalized digital thank-you note from the team.</li>
+                        </ul>
+                    </div>
+                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                </div>
+                <!-- Bronze Tier -->
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Bronze" data-amount="1000" data-physical-rewards="false">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Bronze Tier ($1,000)</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                            <li>A digital copy of "Darkness From Within."</li>
+                            <li>A personalized thank-you message from the development team.</li>
+                        </ul>
+                    </div>
+                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                </div>
+                <!-- Silver Tier -->
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Silver" data-amount="5000" data-physical-rewards="false">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Silver Tier ($5,000)</h3>
+                        <p class="text-[#EF4444] font-medium mb-2">Includes all Bronze Tier rewards, plus:</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                            <li>Digital art book for the game.</li>
+                            <li>Digital soundtrack.</li>
+                            <li>A digital signed copy of the game by James Jukiewicz.</li>
+                        </ul>
+                    </div>
+                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                </div>
+                <!-- Gold Tier -->
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Gold" data-amount="10000" data-physical-rewards="true">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Gold Tier ($10,000)</h3>
+                        <p class="text-[#EF4444] font-medium mb-2">Includes all Silver Tier rewards, plus:</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                            <li>Physical collector's edition of the game.</li>
+                            <li>A physical art book signed by the core development team.</li>
+                            <li>A personal video message from the team, offering an exclusive look at the studio.</li>
+                        </ul>
+                    </div>
+                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                </div>
+                <!-- Legend Tier -->
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Legend" data-amount="15000" data-physical-rewards="true">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Legend Tier (Limited to 25) ($15,000)</h3>
+                        <p class="text-[#EF4444] font-medium mb-2">Includes all Gold Tier rewards, plus:</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                            <li>Your likeness as a non-playable character (NPC) in the game.</li>
+                            <li>The opportunity to name your character and provide a short backstory.</li>
+                            <li>A special in-game item or weapon named after you.</li>
+                        </ul>
+                    </div>
+                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                </div>
+                <!-- Archon Tier -->
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Archon" data-amount="20000" data-physical-rewards="true">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Archon Tier (Limited to 25) ($20,000)</h3>
+                        <p class="text-[#EF4444] font-medium mb-2">Includes all Legend Tier rewards, plus:</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                            <li>A personal video call with the core team to discuss the game's development.</li>
+                            <li>A custom in-game Easter egg or secret area dedicated to your name or persona.</li>
+                            <li>An exclusive physical statue of an in-game character, signed by the team.</li>
+                        </ul>
+                    </div>
+                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                </div>
+                <!-- Platinum Tier (New) -->
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Platinum" data-amount="50000" data-physical-rewards="true">
+                    <div>
+                        <h3 class="text-xl font-bold mb-3">Platinum Tier ($50,000+)</h3>
+                        <p class="text-[#EF4444] font-medium mb-2">Includes all Archon Tier rewards, plus:</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                            <li>A "Co-Producer" credit in the game and on all related marketing materials.</li>
+                            <li>The opportunity to name a major in-game location, such as a city or dungeon.</li>
+                            <li>A permanent, in-game monument or statue with your name inscribed upon it.</li>
+                            <li>Invitation to an exclusive launch event or virtual Q&A session with the full team.</li>
+                        </ul>
+                    </div>
+                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                </div>
+            </div>
+        </section>
 
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navigationLinks = document.querySelectorAll('#navigation .nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
+    <!-- Modal for Investment Form -->
+    <div id="investment-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+            <h3 class="text-2xl font-bold mb-4 text-center">Become a Partner</h3>
+            <p class="text-center text-gray-400 mb-6">You've selected the <span id="modal-tier" class="text-[#EF4444] font-bold"></span>.</p>
+            <form id="investment-form" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                <div id="address-container" class="hidden">
+                    <label for="address" class="block text-sm font-medium text-gray-400 mb-1">Shipping Address (For physical rewards)</label>
+                    <textarea id="address" name="address" rows="3" class="form-textarea"></textarea>
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-400 mb-1">Additional Comments</label>
+                    <textarea id="message" name="message" rows="3" class="form-textarea"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300">Submit</button>
+            </form>
+        </div>
+    </div>
 
-            // --- Navigation Logic ---
-            const setActiveLink = (hash) => {
-                navigationLinks.forEach(link => {
-                    link.classList.toggle('active', link.hash === hash);
-                });
-                contentSections.forEach(section => {
-                    section.classList.toggle('active', `#${section.id}` === hash);
-                });
-            };
+    <!-- Modal for Success/Error Messages -->
+    <div id="message-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeMessageModal()">&times;</button>
+            <h3 id="message-modal-title" class="text-2xl font-bold mb-4 text-center text-[#EF4444]">Success!</h3>
+            <p id="message-modal-text" class="text-center text-gray-400 mb-6">Your message has been sent.</p>
+            <button onclick="closeMessageModal()" class="w-full bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300">Close</button>
+        </div>
+    </div>
 
-            navigationLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetHash = this.hash;
-                    window.location.hash = targetHash;
-                    setActiveLink(targetHash);
-                });
-            });
+    <!-- Modal for Investor List (To be added via Firebase) -->
+    <div id="investor-list-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeInvestorsModal()">&times;</button>
+            <h3 class="text-2xl font-bold mb-4 text-center">Current Investors</h3>
+            <ul id="investor-list" class="investor-list space-y-2 max-h-80 overflow-y-auto pr-2">
+                <!-- Investor data will be dynamically loaded here -->
+            </ul>
+        </div>
+    </div>
 
-            const initialHash = window.location.hash || '#studio';
-            setActiveLink(initialHash);
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-            // --- Game Section Tabs Logic ---
-            const tabButtons = document.querySelectorAll('.tab-button');
-            const tabPanes = document.querySelectorAll('.tab-pane');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    button.classList.add('active');
-
-                    const tabId = button.getAttribute('data-tab');
-                    tabPanes.forEach(pane => {
-                        pane.classList.toggle('hidden', pane.id !== `${tabId}-content`);
-                        pane.classList.toggle('active', pane.id === `${tabId}-content`);
-                    });
-                });
-            });
-
-            // --- Canvas Icon Drawing ---
-            const navIcons = document.querySelectorAll('.nav-icon');
-            const drawIcon = (canvas, type) => {
-                const ctx = canvas.getContext('2d');
-                ctx.strokeStyle = '#EF4444';
-                ctx.lineWidth = 1.5;
-                ctx.clearRect(0, 0, 20, 20);
-
-                switch (type) {
-                    case 'studio': // Building icon
-                        ctx.strokeRect(3, 8, 14, 9);
-                        ctx.beginPath();
-                        ctx.moveTo(3, 8);
-                        ctx.lineTo(10, 3);
-                        ctx.lineTo(17, 8);
-                        ctx.stroke();
-                        ctx.strokeRect(8, 12, 4, 5);
-                        break;
-                    case 'game': // Gamepad icon
-                        ctx.strokeRect(2, 6, 16, 10);
-                        ctx.beginPath();
-                        ctx.moveTo(6, 6);
-                        ctx.lineTo(6, 3);
-                        ctx.stroke();
-                        ctx.beginPath();
-                        ctx.moveTo(13, 10);
-                        ctx.arc(13, 11, 1, 0, 2 * Math.PI);
-                        ctx.moveTo(15, 12);
-                        ctx.arc(15, 13, 1, 0, 2 * Math.PI);
-                        ctx.stroke();
-                        break;
-                    case 'market': // Chart icon
-                        ctx.beginPath();
-                        ctx.moveTo(3, 17);
-                        ctx.lineTo(3, 5);
-                        ctx.lineTo(8, 9);
-                        ctx.lineTo(13, 7);
-                        ctx.lineTo(17, 12);
-                        ctx.stroke();
-                        ctx.beginPath();
-                        ctx.moveTo(3,17);
-                        ctx.lineTo(17,17);
-                        ctx.stroke();
-                        break;
-                    case 'plan': // Roadmap/list icon
-                        ctx.beginPath();
-                        ctx.moveTo(3, 5);
-                        ctx.lineTo(17, 5);
-                        ctx.moveTo(3, 10);
-                        ctx.lineTo(17, 10);
-                        ctx.moveTo(3, 15);
-                        ctx.lineTo(12, 15);
-                        ctx.stroke();
-                        break;
-                    case 'financials': // Dollar sign icon
-                        ctx.font = 'bold 16px sans-serif';
-                        ctx.fillStyle = '#EF4444';
-                        ctx.fillText('$', 6, 15);
-                        break;
+        // Global variables provided by the Canvas environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        let db, auth;
+        let userId;
+        
+        // Asynchronous function to initialize Firebase and handle authentication
+        async function initializeFirebase() {
+            try {
+                if (!Object.keys(firebaseConfig).length) {
+                    console.error("Firebase config is missing. Cannot initialize Firestore.");
+                    return;
                 }
-            };
-            navIcons.forEach(canvas => drawIcon(canvas, canvas.dataset.icon));
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                // Sign in the user. Prefer custom token if available, otherwise sign in anonymously.
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                userId = auth.currentUser?.uid;
+                if (userId) {
+                    console.log(`Authenticated with user ID: ${userId}`);
+                } else {
+                    console.error("Could not get a valid user ID after authentication.");
+                }
 
-            // --- Chart.js Initializations ---
-            const chartFontColor = '#D1D5DB';
-            const chartGridColor = '#242424';
-            const chartAccentColor = '#EF4444';
-            const chartSecondaryColor = '#DC2626';
-            const chartTertiaryColor = '#4B5563';
+            } catch (error) {
+                console.error("Error initializing Firebase or signing in:", error);
+            }
+        }
 
-            // Market Chart
-            const marketCtx = document.getElementById('marketChart');
-            if (marketCtx) {
-                new Chart(marketCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['PC Gaming', 'Console Gaming'],
-                        datasets: [{
-                            label: 'Market Size (in Billions USD)',
-                            data: [43, 51],
-                            backgroundColor: [chartAccentColor, chartSecondaryColor],
-                            borderColor: [chartAccentColor, chartSecondaryColor],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        indexAxis: 'y',
-                        plugins: {
-                            legend: { display: false },
-                            title: { display: true, text: 'PC vs Console Market Revenue (2024)', color: chartFontColor, font: { size: 16 } },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return `$${context.raw} Billion`;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                beginAtZero: true,
-                                title: { display: true, text: 'Revenue (Billions USD)', color: chartFontColor },
-                                grid: { color: chartGridColor },
-                                ticks: { color: chartFontColor }
-                            },
-                            y: {
-                                grid: { display: false },
-                                ticks: { color: chartFontColor, font: { size: 14 } }
-                            }
-                        }
+        // --- UI & Event Handling ---
+        
+        // Navigation and Content Switching
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = e.currentTarget.getAttribute('href').substring(1);
+
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+
+                contentSections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
                     }
                 });
+            });
+        });
+
+        // Tab functionality for "The Game" section
+        const tabButtons = document.querySelectorAll('#game-tabs .tab-button');
+        const tabPanes = document.querySelectorAll('#tab-content .tab-pane');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Deactivate all buttons and panes
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanes.forEach(pane => pane.classList.add('hidden'));
+
+                // Activate the clicked button and its corresponding pane
+                const tab = button.dataset.tab;
+                button.classList.add('active');
+                document.getElementById(tab + '-content').classList.remove('hidden');
+            });
+        });
+
+        // Investment Tier Modal Logic
+        const investmentModal = document.getElementById('investment-modal');
+        const modalTierText = document.getElementById('modal-tier');
+        const addressContainer = document.getElementById('address-container');
+        const messageModal = document.getElementById('message-modal');
+        const messageModalTitle = document.getElementById('message-modal-title');
+        const messageModalText = document.getElementById('message-modal-text');
+
+        function openModal(tier, requiresPhysical) {
+            modalTierText.textContent = tier;
+            if (requiresPhysical) {
+                addressContainer.classList.remove('hidden');
+                document.getElementById('address').setAttribute('required', 'required');
+            } else {
+                addressContainer.classList.add('hidden');
+                document.getElementById('address').removeAttribute('required');
+            }
+            investmentModal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            investmentModal.style.display = 'none';
+        }
+
+        function showMessage(title, message) {
+            messageModalTitle.textContent = title;
+            messageModalText.textContent = message;
+            messageModal.style.display = 'flex';
+        }
+
+        function closeMessageModal() {
+            messageModal.style.display = 'none';
+        }
+
+        document.querySelectorAll('.get-started-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.currentTarget.closest('.card');
+                const tier = card.dataset.tier;
+                const requiresPhysical = card.dataset.physicalRewards === 'true';
+                openModal(tier, requiresPhysical);
+            });
+        });
+
+        document.getElementById('investment-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            closeModal();
+
+            if (!db) {
+                showMessage("Error", "Database not initialized. Please try again.");
+                return;
             }
 
-            // Funding Chart
-            const fundingCtx = document.getElementById('fundingChart');
-            if (fundingCtx) {
-                new Chart(fundingCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Personnel Costs', 'Operational Overheads', 'Contingency Fund', 'Marketing & Launch'],
-                        datasets: [{
-                            label: 'Funding Allocation',
-                            data: [1786875, 306000, 328931.25, 100000],
-                            backgroundColor: [chartAccentColor, chartSecondaryColor, chartTertiaryColor, '#6B7280'],
-                            hoverOffset: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'bottom', labels: { color: chartFontColor } },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                                        const value = context.raw;
-                                        const percentage = ((value / total) * 100).toFixed(1);
-                                        return `${context.label}: $${value.toLocaleString()} (${percentage}%)`;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
+            const tier = document.getElementById('modal-tier').textContent;
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const message = document.getElementById('message').value;
 
-            // Projections Chart
-            const projectionsCtx = document.getElementById('projectionsChart');
-            if (projectionsCtx) {
-                new Chart(projectionsCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Year 1', 'Year 2', 'Year 3'],
-                        datasets: [
-                            {
-                                label: 'Total Operating Expenses',
-                                data: [697625, 797625, 697625],
-                                backgroundColor: chartTertiaryColor,
-                                order: 2
-                            },
-                            {
-                                label: 'Net Revenue',
-                                data: [0, 1968187.50, 1162087.50],
-                                borderColor: chartAccentColor,
-                                backgroundColor: chartAccentColor,
-                                type: 'line',
-                                tension: 0.1,
-                                order: 1,
-                                yAxisID: 'y1'
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'top', labels: { color: chartFontColor } },
-                             tooltip: {
-                                mode: 'index',
-                                intersect: false,
-                                callbacks: {
-                                    label: function(context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed.y !== null) {
-                                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                                        }
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                stacked: true,
-                                grid: { display: false },
-                                ticks: { color: chartFontColor }
-                            },
-                            y: {
-                                stacked: true,
-                                beginAtZero: true,
-                                title: { display: true, text: 'Expenses (USD)', color: chartFontColor },
-                                grid: { color: chartGridColor },
-                                ticks: { 
-                                    color: chartFontColor,
-                                    callback: function(value) {
-                                        return '$' + (value / 1000) + 'K';
-                                    }
-                                }
-                            },
-                            y1: {
-                                type: 'linear',
-                                display: true,
-                                position: 'right',
-                                beginAtZero: true,
-                                title: { display: true, text: 'Revenue (USD)', color: chartAccentColor },
-                                grid: { drawOnChartArea: false },
-                                ticks: { 
-                                    color: chartAccentColor,
-                                     callback: function(value) {
-                                        return '$' + (value / 1000000).toFixed(1) + 'M';
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
+            try {
+                // Save the investment data to Firestore
+                const investorData = {
+                    tier: tier,
+                    name: name,
+                    email: email,
+                    address: address || null, // Handle optional address
+                    message: message || null,
+                    timestamp: new Date(),
+                    userId: userId // Add the user ID for security rules
+                };
+                
+                // Firestore path: /artifacts/{appId}/public/data/investors
+                const investorsCol = collection(db, `artifacts/${appId}/public/data/investors`);
+                await addDoc(investorsCol, investorData);
+
+                showMessage("Success!", "Thank you for your interest! Your information has been submitted.");
+                e.target.reset(); // Reset the form
+            } catch (error) {
+                console.error("Error submitting investment form:", error);
+                showMessage("Error", "There was a problem submitting your information. Please try again.");
             }
         });
+
+        // Handle investor list display
+        const investorListModal = document.getElementById('investor-list-modal');
+        const investorList = document.getElementById('investor-list');
+        let investorListBtn; // Will be created dynamically
+
+        function openInvestorsModal() {
+            investorListModal.style.display = 'flex';
+        }
+        function closeInvestorsModal() {
+            investorListModal.style.display = 'none';
+        }
+        
+        // Listen for investor data in real-time
+        function setupInvestorListener() {
+            if (!db) return;
+            const investorsCol = collection(db, `artifacts/${appId}/public/data/investors`);
+            
+            onSnapshot(investorsCol, (snapshot) => {
+                investorList.innerHTML = ''; // Clear the list
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const li = document.createElement('li');
+                    li.classList.add('p-3', 'bg-[#1a1a1a]', 'rounded-lg', 'border', 'border-[#242424]', 'text-gray-300', 'flex', 'flex-col', 'sm:flex-row', 'sm:justify-between', 'sm:items-center');
+                    li.innerHTML = `
+                        <div>
+                            <span class="text-[#EF4444] font-bold">${data.name}</span>
+                            <span class="text-sm text-gray-400"> invested in </span>
+                            <span class="font-medium">${data.tier} Tier</span>
+                        </div>
+                        <span class="text-xs text-gray-500 mt-1 sm:mt-0">${data.timestamp.toDate().toLocaleString()}</span>
+                    `;
+                    investorList.appendChild(li);
+                });
+            }, (error) => {
+                console.error("Error listening to investor data:", error);
+            });
+        }
+
+        // --- Chart Logic ---
+        function createMarketChart() {
+            const chartData = {
+                labels: ['PC', 'Console', 'Mobile', 'Others'],
+                datasets: [{
+                    label: 'Market Share',
+                    data: [42.6, 51.4, 85.8, 11.2], // Example data in billions
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.7)', // Red
+                        'rgba(255, 100, 100, 0.7)', // Lighter Red
+                        'rgba(150, 150, 150, 0.7)', // Grey
+                        'rgba(100, 100, 100, 0.7)'  // Darker Grey
+                    ],
+                    borderColor: [
+                        '#EF4444', '#EF4444', '#D1D5DB', '#D1D5DB'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const chartConfig = {
+                type: 'doughnut',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#D1D5DB', // Text color
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += '$' + context.raw + 'B';
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '75%',
+                }
+            };
+            const marketChartCtx = document.getElementById('marketChart').getContext('2d');
+            new Chart(marketChartCtx, chartConfig);
+        }
+
+        function createFundingChart() {
+            const chartData = {
+                labels: ['Personnel (70.9%)', 'Marketing (10.1%)', 'Operations (12.1%)', 'Contingency (6.9%)'],
+                datasets: [{
+                    label: 'Funding Allocation',
+                    data: [1788000, 255000, 305000, 173806],
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.7)',
+                        'rgba(255, 100, 100, 0.7)',
+                        'rgba(150, 150, 150, 0.7)',
+                        'rgba(100, 100, 100, 0.7)'
+                    ],
+                    borderColor: [
+                        '#EF4444', '#EF4444', '#D1D5DB', '#D1D5DB'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+            const chartConfig = {
+                type: 'pie',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#D1D5DB',
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += '$' + context.raw.toLocaleString();
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            const fundingChartCtx = document.getElementById('fundingChart').getContext('2d');
+            new Chart(fundingChartCtx, chartConfig);
+        }
+
+        function createProjectionsChart() {
+            const chartFontColor = '#D1D5DB';
+            const chartGridColor = 'rgba(209, 213, 219, 0.1)';
+            const chartAccentColor = '#EF4444';
+
+            const data = {
+                labels: ['Year 1', 'Year 2', 'Year 3'],
+                datasets: [{
+                    label: 'Expenses',
+                    data: [1900000, 1500000, 1200000], // Example data
+                    backgroundColor: 'rgba(209, 213, 219, 0.5)',
+                    borderColor: '#D1D5DB',
+                    tension: 0.4,
+                    yAxisID: 'y'
+                }, {
+                    label: 'Revenue',
+                    data: [0, 2200000, 3500000], // Example data
+                    backgroundColor: 'rgba(239, 68, 68, 0.5)',
+                    borderColor: '#EF4444',
+                    tension: 0.4,
+                    yAxisID: 'y1'
+                }]
+            };
+
+            const projectionsChartCtx = document.getElementById('projectionsChart').getContext('2d');
+            new Chart(projectionsChartCtx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: chartFontColor,
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: chartFontColor },
+                            grid: { color: chartGridColor }
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true,
+                            title: { display: true, text: 'Expenses (USD)', color: chartFontColor },
+                            grid: { color: chartGridColor },
+                            ticks: { 
+                                color: chartFontColor,
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'K';
+                                }
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            title: { display: true, text: 'Revenue (USD)', color: chartAccentColor },
+                            grid: { drawOnChartArea: false },
+                            ticks: { 
+                                color: chartAccentColor,
+                                 callback: function(value) {
+                                    return '$' + (value / 1000000).toFixed(1) + 'M';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Icon drawing on the canvas elements
+        function drawIcons() {
+            const navIcons = document.querySelectorAll('.nav-icon');
+            navIcons.forEach(canvas => {
+                const ctx = canvas.getContext('2d');
+                const icon = canvas.dataset.icon;
+                const color = '#EF4444';
+
+                ctx.fillStyle = color;
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1.5;
+
+                switch (icon) {
+                    case 'studio':
+                        ctx.beginPath();
+                        ctx.rect(3, 8, 14, 9);
+                        ctx.moveTo(10, 3);
+                        ctx.lineTo(17, 8);
+                        ctx.lineTo(3, 8);
+                        ctx.closePath();
+                        ctx.fill();
+                        break;
+                    case 'game':
+                        ctx.beginPath();
+                        ctx.moveTo(10, 2);
+                        ctx.lineTo(18, 10);
+                        ctx.lineTo(10, 18);
+                        ctx.lineTo(2, 10);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(10, 10, 2, 0, Math.PI * 2);
+                        ctx.stroke();
+                        break;
+                    case 'market':
+                        ctx.beginPath();
+                        ctx.moveTo(3, 17);
+                        ctx.lineTo(3, 10);
+                        ctx.lineTo(8, 10);
+                        ctx.lineTo(8, 17);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(8, 14);
+                        ctx.lineTo(13, 14);
+                        ctx.lineTo(13, 7);
+                        ctx.lineTo(18, 7);
+                        ctx.lineTo(18, 14);
+                        ctx.stroke();
+                        break;
+                    case 'plan':
+                        ctx.beginPath();
+                        ctx.moveTo(3, 3);
+                        ctx.lineTo(17, 3);
+                        ctx.moveTo(3, 8);
+                        ctx.lineTo(17, 8);
+                        ctx.moveTo(3, 13);
+                        ctx.lineTo(17, 13);
+                        ctx.stroke();
+                        break;
+                    case 'financials':
+                        ctx.beginPath();
+                        ctx.moveTo(5, 17);
+                        ctx.lineTo(15, 17);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(5, 17);
+                        ctx.lineTo(10, 5);
+                        ctx.lineTo(15, 17);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(10, 5, 2, 0, Math.PI * 2);
+                        ctx.fill();
+                        break;
+                    case 'investment':
+                        ctx.beginPath();
+                        ctx.arc(10, 10, 8, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.moveTo(10, 6);
+                        ctx.lineTo(10, 14);
+                        ctx.moveTo(6, 10);
+                        ctx.lineTo(14, 10);
+                        ctx.stroke();
+                        break;
+                }
+            });
+        }
+
+        window.onload = async function() {
+            try {
+                // Initialize charts first
+                createMarketChart();
+                createFundingChart();
+                createProjectionsChart();
+                drawIcons();
+                // Then initialize Firebase
+                await initializeFirebase();
+                // After Firebase is initialized, set up the real-time listener
+                setupInvestorListener();
+            } catch (error) {
+                console.error("Initialization failed:", error);
+            }
+        };
     </script>
 </body>
 </html>
