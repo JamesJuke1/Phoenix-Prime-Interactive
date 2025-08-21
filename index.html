@@ -537,7 +537,7 @@
             <div class="modal-content">
                 <span class="modal-close-btn">&times;</span>
                 <h3 class="text-2xl font-bold mb-4">Invest in <span id="modal-tier-title" class="text-[#EF4444]"></span></h3>
-                <p class="text-gray-400 mb-4">Please enter your payment details to complete your investment.</p>
+                <p class="text-gray-400 mb-4">Please enter your contact details to express your interest.</p>
                 <form id="payment-form">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="mb-4 col-span-2">
@@ -548,24 +548,13 @@
                             <label for="email-address" class="block text-sm font-medium mb-1">Email Address</label>
                             <input type="email" id="email-address" name="emailAddress" class="form-input" required>
                         </div>
-                        <div class="mb-4 col-span-2">
-                            <label for="card-number" class="block text-sm font-medium mb-1">Card Number</label>
-                            <input type="text" id="card-number" name="cardNumber" class="form-input" placeholder="XXXX XXXX XXXX XXXX" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="expiry-date" class="block text-sm font-medium mb-1">Expiry Date</label>
-                            <input type="text" id="expiry-date" name="expiryDate" class="form-input" placeholder="MM/YY" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="cvc" class="block text-sm font-medium mb-1">CVC</label>
-                            <input type="text" id="cvc" name="cvc" class="form-input" placeholder="XXX" required>
-                        </div>
+                        
                     </div>
                     <div id="physical-address-container" class="mb-6">
                         <label for="physical-address" class="block text-sm font-medium mb-1">Physical Address</label>
                         <textarea id="physical-address" name="physicalAddress" rows="3" class="form-textarea" required></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-[#EF4444] text-white font-bold py-3 px-6 rounded-xl hover:bg-[#DC2626] transition-colors">Confirm Payment</button>
+                    
                     
                     <div class="relative flex py-4 items-center">
                         <div class="flex-grow border-t border-gray-600"></div>
@@ -598,123 +587,7 @@
         <p id="message-text"></p>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Global variables for Firebase services
-        let db;
-        let auth;
-        let userId;
-
-        // Function to show a temporary message box
-        function showMessage(message) {
-            const messageBox = document.getElementById('message-box');
-            const messageText = document.getElementById('message-text');
-            messageText.textContent = message;
-            messageBox.style.display = 'block';
-            setTimeout(() => {
-                messageBox.style.display = 'none';
-            }, 3000);
-        }
-
-        // Initialize Firebase
-        async function initializeFirebase() {
-            try {
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-                const app = initializeApp(firebaseConfig);
-                auth = getAuth(app);
-                db = getFirestore(app);
-
-                // Authenticate the user
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
-                // Wait for the auth state to be ready
-                await new Promise(resolve => {
-                    const unsubscribe = onAuthStateChanged(auth, user => {
-                        if (user) {
-                            userId = user.uid;
-                            document.getElementById('user-id-display').textContent = userId;
-                            console.log("Firebase initialized and authenticated successfully.");
-                            resolve();
-                        } else {
-                            console.error("Firebase authentication failed.");
-                            resolve(); // Resolve anyway to not block the app
-                        }
-                        unsubscribe();
-                    });
-                });
-            } catch (error) {
-                console.error("Firebase initialization or authentication failed:", error);
-            }
-        }
-
-        // Function to set up a real-time listener for the investors
-        function setupInvestorListener() {
-            if (!db || !userId) {
-                console.log("Database or user ID not available. Cannot set up listener.");
-                return;
-            }
-            
-            // Define the public collection path for shared data
-            const investorCollectionPath = `/artifacts/${typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'}/public/data/investors`;
-            const q = query(collection(db, investorCollectionPath));
-
-            onSnapshot(q, (querySnapshot) => {
-                const investorList = document.getElementById('investor-list');
-                investorList.innerHTML = '';
-                if (querySnapshot.empty) {
-                    investorList.textContent = 'No investors yet. Be the first!';
-                    return;
-                }
-                querySnapshot.forEach((doc) => {
-                    const investor = doc.data();
-                    const li = document.createElement('li');
-                    li.textContent = `${investor.name} ($${investor.amount}) - ${investor.tier}`;
-                    investorList.appendChild(li);
-                });
-            }, (error) => {
-                console.error("Error fetching real-time investor data:", error);
-                showMessage("Failed to fetch investor data.");
-            });
-        }
-
-        // Function to save investor data to Firestore
-        async function saveInvestorData(investorInfo) {
-            if (!db || !userId) {
-                console.error("Database or user ID not available. Cannot save data.");
-                showMessage("App not ready. Please try again.");
-                return;
-            }
-
-            try {
-                // Define the public collection path for shared data
-                const investorCollectionPath = `/artifacts/${typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'}/public/data/investors`;
-                const newDocRef = doc(collection(db, investorCollectionPath));
-                
-                // Add a timestamp to the data
-                investorInfo.timestamp = new Date();
-                
-                // Save the data to Firestore
-                await setDoc(newDocRef, investorInfo);
-                
-                console.log("Investor data saved successfully with ID:", newDocRef.id);
-                showMessage("Thank you! Your investment has been recorded.");
-
-            } catch (e) {
-                console.error("Error adding document: ", e);
-                showMessage("Error saving your investment. Please try again.");
-            }
-        }
-
+    <script>
         // --- DOM Manipulation and Event Listeners ---
 
         // Navigation and Section Logic
@@ -1043,25 +916,11 @@
         });
         
         // Handle form submission
-        paymentForm.addEventListener('submit', async (e) => {
+        paymentForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
-            // Note: This is a simulated payment process. No real money is transferred.
-            // In a real application, you would integrate a service like Stripe or PayPal here.
-
-            const formData = new FormData(paymentForm);
-            const investorInfo = {
-                name: formData.get('fullName'),
-                email: formData.get('emailAddress'),
-                address: formData.get('physicalAddress') || 'N/A', // Use 'N/A' if address is not required
-                tier: selectedTier,
-                amount: parseInt(selectedAmount),
-                // Adding a placeholder for payment information, as a real payment gateway isn't implemented.
-                paymentStatus: 'paid'
-            };
             
-            // Save the data to Firestore
-            await saveInvestorData(investorInfo);
+            // This is a placeholder for a confirmation message
+            alert(`Thank you for your interest in the ${selectedTier} Tier!`);
             
             // Close the modal and reset the form
             paymentModal.style.display = 'none';
@@ -1069,20 +928,20 @@
         });
 
         // Main initialization function
-        window.onload = async function() {
-            try {
-                // Initialize charts and icons first
-                createMarketChart();
-                createFundingChart();
-                createProjectionsChart();
-                drawIcons();
-                // Then initialize Firebase
-                await initializeFirebase();
-                // After Firebase is initialized, set up the real-time listener
-                setupInvestorListener();
-            } catch (error) {
-                console.error("Initialization failed:", error);
-            }
+        window.onload = function() {
+            // Initialize charts and icons
+            createMarketChart();
+            createFundingChart();
+            createProjectionsChart();
+            drawIcons();
+            
+            // Populate the placeholder investor list
+            const investorList = document.getElementById('investor-list');
+            investorList.innerHTML = '<li>John Doe ($1,000) - Bronze Tier</li><li>Jane Smith ($5,000) - Silver Tier</li>';
+            
+            // Hide the user ID display as it's no longer functional
+            const userIdDisplay = document.getElementById('user-id-display').parentElement;
+            userIdDisplay.style.display = 'none';
         };
     </script>
 </body>
