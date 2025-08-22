@@ -810,6 +810,29 @@
                 document.getElementById(tabId + '-content').classList.remove('hidden');
             });
         });
+        
+        document.querySelectorAll('.get-started-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                selectedTier = button.parentElement.getAttribute('data-tier');
+                selectedAmount = button.parentElement.getAttribute('data-amount');
+                const hasPhysicalRewards = button.parentElement.getAttribute('data-physical-rewards') === 'true';
+
+                modalTierTitle.textContent = `${selectedTier} Tier`;
+                paymentModal.style.display = 'flex';
+
+                // Show or hide the physical address field based on the tier
+                if (hasPhysicalRewards) {
+                    physicalAddressContainer.style.display = 'block';
+                    document.getElementById('physical-address').setAttribute('required', 'true');
+                } else {
+                    physicalAddressContainer.style.display = 'none';
+                    document.getElementById('physical-address').removeAttribute('required');
+                }
+
+                // Render the PayPal button after the modal opens
+                renderPayPalButton(selectedAmount);
+            });
+        });
 
         // --- Chart.js Initialization and Data ---
 
