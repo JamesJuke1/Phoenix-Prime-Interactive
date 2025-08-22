@@ -616,29 +616,6 @@
                 document.getElementById(tabId + '-content').classList.remove('hidden');
             });
         });
-        document.querySelectorAll('.get-started-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        selectedTier = button.parentElement.getAttribute('data-tier');
-        selectedAmount = button.parentElement.getAttribute('data-amount');
-        const hasPhysicalRewards = button.parentElement.getAttribute('data-physical-rewards') === 'true';
-
-        modalTierTitle.textContent = `${selectedTier} Tier`;
-        paymentModal.style.display = 'flex';
-
-        // Show or hide the physical address field
-        if (hasPhysicalRewards) {
-            physicalAddressContainer.style.display = 'block';
-            document.getElementById('physical-address').setAttribute('required', 'true');
-        } else {
-            physicalAddressContainer.style.display = 'none';
-            document.getElementById('physical-address').removeAttribute('required');
-        }
-
-        // Clear any existing button and render the new one
-        document.getElementById('paypal-button-container').innerHTML = '';
-        renderPayPalButton(selectedAmount);
-    });
-});
         
         // --- Chart.js Initialization and Data ---
 
@@ -892,6 +869,78 @@
                 }
             });
         }
+
+        // --- Payment Modal and Form Logic ---
+        
+        const paymentModal = document.getElementById('payment-modal');
+        const paymentForm = document.getElementById('payment-form');
+        const modalTierTitle = document.getElementById('modal-tier-title');
+        const physicalAddressContainer = document.getElementById('physical-address-container');
+        let selectedTier = ''; // Variable to hold the selected tier
+        let selectedAmount = '';
+
+        // Open the modal when a 'Get Started' button is clicked
+        document.querySelectorAll('.get-started-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                selectedTier = button.parentElement.getAttribute('data-tier');
+                selectedAmount = button.parentElement.getAttribute('data-amount');
+                const hasPhysicalRewards = button.parentElement.getAttribute('data-physical-rewards') === 'true';
+
+                modalTierTitle.textContent = `${selectedTier} Tier`;
+                paymentModal.style.display = 'flex';
+                
+                // Show or hide the physical address field based on the tier
+                if (hasPhysicalRewards) {
+                    physicalAddressContainer.style.display = 'block';
+                    document.getElementById('physical-address').setAttribute('required', 'true');
+                } else {
+                    physicalAddressContainer.style.display = 'none';
+                    document.getElementById('physical-address').removeAttribute('required');
+                }
+            });
+        });
+
+        // Close the modal when the close button is clicked
+        document.querySelector('.modal-close-btn').addEventListener('click', () => {
+            paymentModal.style.display = 'none';
+        });
+
+        // Close the modal if the user clicks outside of it
+        window.addEventListener('click', (e) => {
+            if (e.target === paymentModal) {
+                paymentModal.style.display = 'none';
+            }
+        });
+        
+        // Handle form submission
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // This is a placeholder for a confirmation message
+            alert(`Thank you for your interest in the ${selectedTier} Tier!`);
+            
+            // Close the modal and reset the form
+            paymentModal.style.display = 'none';
+            paymentForm.reset();
+        });
+
+        // Main initialization function
+        window.onload = function() {
+            // Initialize charts and icons
+            createMarketChart();
+            createFundingChart();
+            createProjectionsChart();
+            drawIcons();
+            
+            // Populate the placeholder investor list
+            const investorList = document.getElementById('investor-list');
+            investorList.innerHTML = '<li>John Doe ($1,000) - Bronze Tier</li><li>Jane Smith ($5,000) - Silver Tier</li>';
+            
+            // Hide the user ID display as it's no longer functional
+            const userIdDisplay = document.getElementById('user-id-display').parentElement;
+            userIdDisplay.style.display = 'none';
+        };
+        // Add this to your existing <script> block
 
 // Function to render the PayPal button
 function renderPayPalButton(tierAmount) {
