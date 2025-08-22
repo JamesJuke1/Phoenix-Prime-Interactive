@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,71 +13,110 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
 
-    
+
     <style>
         body {
-            font-family: 'Nosifier', cursive; /* Use the creepy font for headings and main text */
-            background-color: #050505; /* A very dark, almost black background */
-            color: #E5E7EB; /* Light gray for readability */
-        }
-        h1, h2, h3, h4, h5, h6 {
             font-family: 'Nosifier', cursive;
-            color: #EF4444; /* Set headings to the primary red color */
+            /* Use the creepy font for headings and main text */
+            background-color: #050505;
+            /* A very dark, almost black background */
+            color: #E5E7EB;
+            /* Light gray for readability */
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Nosifier', cursive;
+            color: #EF4444;
+            /* Set headings to the primary red color */
             /* Reduced glow effect */
             text-shadow: 0 0 1px #E0F2FE, 0 0 3px #E0F2FE, 0 0 5px #E0F2FE;
         }
-        p, li, a, button, span {
-            font-family: 'Inter', sans-serif; /* Use a readable font for body text */
-            color: #D1D5DB; /* Slightly darker than E5E7EB for contrast */
+
+        p,
+        li,
+        a,
+        button,
+        span {
+            font-family: 'Inter', sans-serif;
+            /* Use a readable font for body text */
+            color: #D1D5DB;
+            /* Slightly darker than E5E7EB for contrast */
         }
+
         .nav-link {
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
         }
+
         .nav-link.active {
             background-color: #1a1a1a;
-            color: #EF4444; /* Accent Red */
+            color: #EF4444;
+            /* Accent Red */
             border-left-color: #EF4444;
             /* Reduced glow on active link for consistency */
             text-shadow: 0 0 3px #E0F2FE;
         }
+
         .nav-link:hover {
             background-color: #1a1a1a;
             color: #EF4444;
             /* Reduced glow on hover for consistency */
             text-shadow: 0 0 3px #E0F2FE;
         }
+
         .content-section {
             display: none;
         }
+
         .content-section.active {
             display: block;
             animation: fadeIn 0.5s ease-in-out;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .card {
-            background-color: #0F0F0F; /* Slightly lighter than background */
+            background-color: #0F0F0F;
+            /* Slightly lighter than background */
             border: 1px solid #242424;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
+
         .tab-button {
             transition: all 0.3s ease;
         }
+
         .tab-button.active {
             border-bottom-color: #EF4444;
             color: #EF4444;
-            text-shadow: 0 0 2px #E0F2FE; /* Reduced glow on tabs */
+            text-shadow: 0 0 2px #E0F2FE;
+            /* Reduced glow on tabs */
         }
+
         .tab-button:not(.active) {
             color: #6B7280;
         }
+
         .tab-button:hover {
             color: #EF4444;
             text-shadow: 0 0 2px #E0F2FE;
         }
+
         .timeline-item::before {
             content: '';
             position: absolute;
@@ -88,8 +128,10 @@
             border-radius: 50%;
             background-color: #0F0F0F;
             border: 3px solid #EF4444;
-            box-shadow: 0 0 3px #E0F2FE; /* Reduced glow on timeline dots */
+            box-shadow: 0 0 3px #E0F2FE;
+            /* Reduced glow on timeline dots */
         }
+
         .chart-container {
             position: relative;
             width: 100%;
@@ -99,6 +141,7 @@
             height: 40vh;
             max-height: 450px;
         }
+
         /* Modal Styles */
         .modal-overlay {
             position: fixed;
@@ -113,6 +156,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .modal-content {
             background-color: #0A0A0A;
             border: 2px solid #242424;
@@ -120,23 +164,29 @@
             padding: 2rem;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
             position: relative;
         }
+
         .modal-close-btn {
             position: absolute;
             top: 1rem;
             right: 1rem;
             color: #D1D5DB;
-            font-size: 2.5rem; /* MODIFIED: Increased font size */
+            font-size: 2.5rem;
+            /* MODIFIED: Increased font size */
             line-height: 1;
             cursor: pointer;
             transition: color 0.2s ease-in-out;
         }
+
         .modal-close-btn:hover {
-            color: #EF4444; /* MODIFIED: Added hover effect */
+            color: #EF4444;
+            /* MODIFIED: Added hover effect */
         }
-        .form-input, .form-textarea {
+
+        .form-input,
+        .form-textarea {
             width: 100%;
             padding: 0.75rem;
             background-color: #0F0F0F;
@@ -145,23 +195,29 @@
             color: #E5E7EB;
             font-family: 'Inter', sans-serif;
         }
-        .form-input:focus, .form-textarea:focus {
+
+        .form-input:focus,
+        .form-textarea:focus {
             outline: none;
             border-color: #EF4444;
             box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
         }
+
         .investor-list li {
             animation: fadeIn 0.5s ease-in-out;
         }
+
         /* Custom styles for the Pay Now button and form */
         .get-started-btn {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
         }
+
         .get-started-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
         }
+
         .message-box {
             background-color: #0A0A0A;
             color: #E5E7EB;
@@ -178,11 +234,13 @@
         }
     </style>
 </head>
+
 <body class="flex flex-col md:flex-row min-h-screen">
 
     <aside class="w-full md:w-64 bg-[#0A0A0A] border-r border-[#1a1a1a] p-4 md:p-6 md:fixed md:h-full">
         <div class="flex items-center mb-8">
-            <div class="w-10 h-10 bg-gradient-to-br from-[#EF4444] to-[#DC2626] rounded-lg flex items-center justify-center mr-3">
+            <div
+                class="w-10 h-10 bg-gradient-to-br from-[#EF4444] to-[#DC2626] rounded-lg flex items-center justify-center mr-3">
                 <span class="text-gray-900 font-bold text-xl">P</span>
             </div>
             <h1 class="text-xl font-bold">Phoenix Prime</h1>
@@ -226,19 +284,26 @@
     </aside>
 
     <main class="flex-1 md:ml-64 p-6 md:p-10">
-        
+
         <section id="studio" class="content-section active">
             <h2 class="text-4xl font-bold mb-4">The Studio: Vision & Identity</h2>
-            <p class="text-lg mb-8 text-gray-400">Phoenix Prime Interactive is founded on the principles of resilience, quality, and innovation. We are a fully remote studio dedicated to crafting intellectually challenging and emotionally resonant games. This section outlines the core philosophy that drives our creative and business decisions.</p>
-            
+            <p class="text-lg mb-8 text-gray-400">Phoenix Prime Interactive is founded on the principles of resilience,
+                quality, and innovation. We are a fully remote studio dedicated to crafting intellectually challenging
+                and emotionally resonant games. This section outlines the core philosophy that drives our creative and
+                business decisions.</p>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="card p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-3">Mission Statement</h3>
-                    <p class="text-gray-300">To craft unforgettable interactive entertainment that inspires, challenges, and connects players worldwide, embodying the spirit of intellectual rebirth and achieving the highest quality.</p>
+                    <p class="text-gray-300">To craft unforgettable interactive entertainment that inspires, challenges,
+                        and connects players worldwide, embodying the spirit of intellectual rebirth and achieving the
+                        highest quality.</p>
                 </div>
                 <div class="card p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-3">Vision Statement</h3>
-                    <p class="text-gray-300">To be a globally recognized leader in innovative video game development, pushing the boundaries of interactive storytelling and gameplay, demonstrating that resilience and continuous improvement make new heights of achievement possible.</p>
+                    <p class="text-gray-300">To be a globally recognized leader in innovative video game development,
+                        pushing the boundaries of interactive storytelling and gameplay, demonstrating that resilience
+                        and continuous improvement make new heights of achievement possible.</p>
                 </div>
                 <div class="card p-6 rounded-xl md:col-span-2 lg:col-span-1">
                     <h3 class="text-xl font-bold mb-3">Core Values</h3>
@@ -256,15 +321,25 @@
                 <h3 class="text-2xl font-bold mb-4">Founder & Leadership</h3>
                 <div class="flex flex-col md:flex-row items-start">
                     <div class="md:mr-6 mb-4 md:mb-0">
-                        <div class="w-32 h-32 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center">
+                        <div
+                            class="w-32 h-32 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center">
                             <span class="text-6xl font-bold text-gray-500">J</span>
                         </div>
                     </div>
                     <div>
                         <h4 class="text-xl font-bold mb-3">James Jukiewicz, Founder & CEO</h4>
-                        <p class="text-[#EF4444] font-medium mb-3">Interim Creative Director, Lead Developer, Marketing Lead</p>
-                        <p class="text-gray-300 mb-2">James brings a robust background as a versatile game programmer with extensive experience in development, integration, and design. Pursuing an MFA in Game Design and holding a BS in Business Adminstration with a minor in Computer Science, he combines a strong academic foundation with practical industry experience at studios like Tubby Boy Studios, RachaBard LLC and Tier 21 Studios.</p>
-                        <p class="text-gray-300">Proficient in C#, C++, Unreal Engine, and Unity, James has a proven track record of leading teams, optimizing code, and managing complex development pipelines. His comprehensive skill set and personal drive to explore profound psychological themes make him uniquely positioned to lead Phoenix Prime Interactive and deliver the ambitious vision of "Darkness From Within."</p>
+                        <p class="text-[#EF4444] font-medium mb-3">Interim Creative Director, Lead Developer, Marketing
+                            Lead</p>
+                        <p class="text-gray-300 mb-2">James brings a robust background as a versatile game programmer
+                            with extensive experience in development, integration, and design. Pursuing an MFA in Game
+                            Design and holding a BS in Business Adminstration with a minor in Computer Science, he
+                            combines a strong academic foundation with practical industry experience at studios like
+                            Tubby Boy Studios, RachaBard LLC and Tier 21 Studios.</p>
+                        <p class="text-gray-300">Proficient in C#, C++, Unreal Engine, and Unity, James has a proven
+                            track record of leading teams, optimizing code, and managing complex development pipelines.
+                            His comprehensive skill set and personal drive to explore profound psychological themes make
+                            him uniquely positioned to lead Phoenix Prime Interactive and deliver the ambitious vision
+                            of "Darkness From Within."</p>
                     </div>
                 </div>
             </div>
@@ -272,48 +347,74 @@
 
         <section id="game" class="content-section">
             <h2 class="text-4xl font-bold mb-4">The Game: Darkness From Within</h2>
-            <p class="text-lg mb-8 text-gray-400">Our flagship title is a Psychological Action RPG that blends intense, skill-based combat with a deep, character-driven narrative. The game's core innovation is its dynamic, evolving art style, which serves as a visual metaphor for the protagonist's journey of healing and self-discovery.</p>
+            <p class="text-lg mb-8 text-gray-400">Our flagship title is a Psychological Action RPG that blends intense,
+                skill-based combat with a deep, character-driven narrative. The game's core innovation is its dynamic,
+                evolving art style, which serves as a visual metaphor for the protagonist's journey of healing and
+                self-discovery.</p>
 
             <div class="card rounded-xl p-6 mb-8">
                 <div class="border-b border-[#242424] mb-4">
                     <nav id="game-tabs" class="-mb-px flex space-x-6" aria-label="Tabs">
-                        <button class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg" data-tab="concept">Concept & USP</button>
-                        <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg" data-tab="mechanics">Gameplay Mechanics</button>
-                        <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg" data-tab="art">Art & Story</button>
+                        <button class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg"
+                            data-tab="concept">Concept & USP</button>
+                        <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg"
+                            data-tab="mechanics">Gameplay Mechanics</button>
+                        <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg"
+                            data-tab="art">Art & Story</button>
                     </nav>
                 </div>
 
                 <div id="tab-content">
                     <div id="concept-content" class="tab-pane active">
                         <h3 class="text-2xl font-bold mb-3">A Journey from Shadow to Light</h3>
-                        <p class="text-gray-300 mb-4">"Darkness From Within" is a profound journey into the human psyche. Players guide a former soldier battling his inner demons as his world literally shifts from darkness to light. It's a metaphor for healing and rediscovery, expressed through challenging action combat and an evolving environment.</p>
+                        <p class="text-gray-300 mb-4">"Darkness From Within" is a profound journey into the human
+                            psyche. Players guide a former soldier battling his inner demons as his world literally
+                            shifts from darkness to light. It's a metaphor for healing and rediscovery, expressed
+                            through challenging action combat and an evolving environment.</p>
                         <div class="bg-[#1a1a1a] p-4 rounded-lg border border-dashed border-[#EF4444]">
                             <h4 class="font-bold mb-1">Unique Selling Proposition (USP)</h4>
-                            <p class="text-gray-300 mt-1">A groundbreaking **dynamic art style evolution** that mirrors the protagonist's psychological journey. The world visually transforms from an oppressive, 'Dark Souls'-esque grimness to a vibrant, 'Final Fantasy VII Remake'-like aesthetic as players confront and overcome internal fears, providing a uniquely immersive and emotionally resonant experience.</p>
+                            <p class="text-gray-300 mt-1">A groundbreaking **dynamic art style evolution** that mirrors
+                                the protagonist's psychological journey. The world visually transforms from an
+                                oppressive, 'Dark Souls'-esque grimness to a vibrant, 'Final Fantasy VII Remake'-like
+                                aesthetic as players confront and overcome internal fears, providing a uniquely
+                                immersive and emotionally resonant experience.</p>
                         </div>
                     </div>
                     <div id="mechanics-content" class="tab-pane hidden">
                         <h3 class="text-2xl font-bold mb-3">Intellectual & Skill-Based Combat</h3>
-                        <p class="text-gray-300 mb-4">The core gameplay revolves around challenging, turn-based combat against manifestations of trauma. Player abilities evolve from military skills to psychological strengths, symbolizing self-reliance and healing.</p>
+                        <p class="text-gray-300 mb-4">The core gameplay revolves around challenging, turn-based combat
+                            against manifestations of trauma. Player abilities evolve from military skills to
+                            psychological strengths, symbolizing self-reliance and healing.</p>
                         <ul class="list-disc list-inside text-gray-300 space-y-2">
-                            <li>**Turn-Based Tactical Combat:** Fight against a limited set of core trauma monsters with significant variations, requiring strategic thinking.</li>
-                            <li>**Sanity/Resolve System:** A core survival mechanic where low Sanity triggers visual and auditory hallucinations, impacting combat effectiveness.</li>
-                            <li>**Mindscape Generation:** Procedural generation and modular construction create high replayability through varied encounters and environments.</li>
-                            <li>**Emotional Stat System:** Choices impact stats like Resolve, Confidence, and Empathy, influencing combat and narrative outcomes.</li>
-                            <li>**Multiplayer Co-op:** A planned major free update will allow 2-3 players to team up for the main campaign, similar to *Baldur's Gate 3*.</li>
+                            <li>**Turn-Based Tactical Combat:** Fight against a limited set of core trauma monsters with
+                                significant variations, requiring strategic thinking.</li>
+                            <li>**Sanity/Resolve System:** A core survival mechanic where low Sanity triggers visual and
+                                auditory hallucinations, impacting combat effectiveness.</li>
+                            <li>**Mindscape Generation:** Procedural generation and modular construction create high
+                                replayability through varied encounters and environments.</li>
+                            <li>**Emotional Stat System:** Choices impact stats like Resolve, Confidence, and Empathy,
+                                influencing combat and narrative outcomes.</li>
+                            <li>**Multiplayer Co-op:** A planned major free update will allow 2-3 players to team up for
+                                the main campaign, similar to *Baldur's Gate 3*.</li>
                         </ul>
                     </div>
                     <div id="art-content" class="tab-pane hidden">
                         <h3 class="text-2xl font-bold mb-3">A World Reborn</h3>
-                        <p class="text-gray-300 mb-4">The narrative follows Lucien, a retired soldier who withdraws into his own mind. The game's primary visual style is a stylized 3D aesthetic inspired by modern *Dragon Quest* titles, featuring expressive characters and vibrant colors.</p>
+                        <p class="text-gray-300 mb-4">The narrative follows Lucien, a retired soldier who withdraws into
+                            his own mind. The game's primary visual style is a stylized 3D aesthetic inspired by modern
+                            *Dragon Quest* titles, featuring expressive characters and vibrant colors.</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <h4 class="font-bold mb-1">Initial State: The Darkness</h4>
-                                <p class="text-gray-300">The game begins with a stark, oppressive art style. Environments are muted, claustrophobic, and filled with a sense of dread, drawing inspiration from the grim aesthetics of *Dark Souls*.</p>
+                                <p class="text-gray-300">The game begins with a stark, oppressive art style.
+                                    Environments are muted, claustrophobic, and filled with a sense of dread, drawing
+                                    inspiration from the grim aesthetics of *Dark Souls*.</p>
                             </div>
                             <div>
                                 <h4 class="font-bold mb-1">Final State: The Light</h4>
-                                <p class="text-gray-300">As players defeat bosses, the world visually transforms. Colors become vibrant, details sharpen, and the aesthetic evolves to be closer to the breathtaking realism and dynamic lighting of *Final Fantasy VII Remake*.</p>
+                                <p class="text-gray-300">As players defeat bosses, the world visually transforms. Colors
+                                    become vibrant, details sharpen, and the aesthetic evolves to be closer to the
+                                    breathtaking realism and dynamic lighting of *Final Fantasy VII Remake*.</p>
                             </div>
                         </div>
                     </div>
@@ -322,26 +423,34 @@
 
             <div class="card p-6 rounded-xl">
                 <h3 class="text-2xl font-bold mb-4 text-center">Visuals & Concept Art</h3>
-                <p class="text-lg text-center mb-6 text-gray-400">This section is where you would showcase the game's aesthetic through concept art and in-game visuals. This helps investors and publishers visualize the final product's quality and style.</p>
+                <p class="text-lg text-center mb-6 text-gray-400">This section is where you would showcase the game's
+                    aesthetic through concept art and in-game visuals. This helps investors and publishers visualize the
+                    final product's quality and style.</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
+                    <div
+                        class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
                         <p class="text-gray-500 text-center font-bold">Concept Art: Character & Environment</p>
                     </div>
-                    <div class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
+                    <div
+                        class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
                         <p class="text-gray-500 text-center font-bold">Character Model Sheet</p>
                     </div>
-                    <div class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
+                    <div
+                        class="bg-gray-800 border border-gray-700 rounded-xl aspect-video flex items-center justify-center p-4">
                         <p class="text-gray-500 text-center font-bold">In-Game Screenshot or Gameplay GIF</p>
                     </div>
                 </div>
             </div>
-            </section>
+        </section>
 
         <section id="market" class="content-section">
             <h2 class="text-4xl font-bold mb-4">The Market: Opportunity & Audience</h2>
-            <p class="text-lg mb-8 text-gray-400">The global video game industry is a massive, growing market valued at over $179 billion in 2024. Within this landscape, the indie sector is thriving, with a strong appetite for high-quality, innovative experiences on PC and Console platforms, which represent a combined market of nearly $94 billion.</p>
- 
-            
+            <p class="text-lg mb-8 text-gray-400">The global video game industry is a massive, growing market valued at
+                over $179 billion in 2024. Within this landscape, the indie sector is thriving, with a strong appetite
+                for high-quality, innovative experiences on PC and Console platforms, which represent a combined market
+                of nearly $94 billion.</p>
+
+
             <div class="card p-6 rounded-xl mb-8">
                 <h3 class="text-2xl font-bold mb-4 text-center">Platform Revenue Focus (2024)</h3>
                 <div class="chart-container">
@@ -352,36 +461,52 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="card p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-3">Target Demographics</h3>
-                    <p class="text-gray-300">Our primary audience is the **Core Gaming Audience (18-45+)** on PC and Console. Initially, we will focus on **English-speaking markets** (North America, UK, Australia) before expanding globally with professional localization.</p>
+                    <p class="text-gray-300">Our primary audience is the **Core Gaming Audience (18-45+)** on PC and
+                        Console. Initially, we will focus on **English-speaking markets** (North America, UK, Australia)
+                        before expanding globally with professional localization.</p>
                 </div>
                 <div class="card p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-3">Target Psychographics</h3>
-                    <p class="text-gray-300">We are targeting "Core Gamers" and "Indie Aficionados" who demand intellectual engagement, value unique gameplay, prioritize immersive narratives, and appreciate high artistic and technical polish. They are active in online communities and seek meaningful experiences.</p>
+                    <p class="text-gray-300">We are targeting "Core Gamers" and "Indie Aficionados" who demand
+                        intellectual engagement, value unique gameplay, prioritize immersive narratives, and appreciate
+                        high artistic and technical polish. They are active in online communities and seek meaningful
+                        experiences.</p>
                 </div>
             </div>
         </section>
 
         <section id="plan" class="content-section">
             <h2 class="text-4xl font-bold mb-4">The Plan: Development & Launch</h2>
-            <p class="text-lg mb-8 text-gray-400">Our 36-month plan provides a robust runway for quality development, a strategic launch, and long-term studio sustainability. The core game, "Darkness From Within," will be developed and launched within the first 15 months, followed by extensive post-launch support and pre-production for our next title.</p>
+            <p class="text-lg mb-8 text-gray-400">Our 36-month plan provides a robust runway for quality development, a
+                strategic launch, and long-term studio sustainability. The core game, "Darkness From Within," will be
+                developed and launched within the first 15 months, followed by extensive post-launch support and
+                pre-production for our next title.</p>
             <div class="card p-6 rounded-xl">
                 <h3 class="text-2xl font-bold mb-6">36-Month Development Roadmap</h3>
                 <div class="relative pl-20 border-l-2 border-dashed border-[#242424]">
                     <div class="timeline-item mb-10">
                         <h4 class="font-bold text-lg mb-1">Phase 1: Pre-Production (Months 1-3)</h4>
-                        <p class="text-gray-300">Finalize the Game Design Document, establish the core art style, and develop a playable vertical slice to validate core combat and the art style transition mechanic.</p>
+                        <p class="text-gray-300">Finalize the Game Design Document, establish the core art style, and
+                            develop a playable vertical slice to validate core combat and the art style transition
+                            mechanic.</p>
                     </div>
                     <div class="timeline-item mb-10">
                         <h4 class="font-bold text-lg mb-1">Phase 2: Production (Months 4-12)</h4>
-                        <p class="text-gray-300">Intensive asset creation, core systems implementation, and content population to make the game playable from start to finish. Achieve Alpha and Content Complete milestones.</p>
+                        <p class="text-gray-300">Intensive asset creation, core systems implementation, and content
+                            population to make the game playable from start to finish. Achieve Alpha and Content
+                            Complete milestones.</p>
                     </div>
                     <div class="timeline-item mb-10">
                         <h4 class="font-bold text-lg mb-1">Phase 3: Beta, Polish & Launch (Months 13-15)</h4>
-                        <p class="text-gray-300">Aggressive bug fixing, comprehensive balancing, performance optimization, and final polish. Submit for platform certification and prepare for a Month 15 launch.</p>
+                        <p class="text-gray-300">Aggressive bug fixing, comprehensive balancing, performance
+                            optimization, and final polish. Submit for platform certification and prepare for a Month 15
+                            launch.</p>
                     </div>
                     <div class="timeline-item">
                         <h4 class="font-bold text-lg mb-1">Phase 4: Post-Launch & Future Growth (Months 16-36)</h4>
-                        <p class="text-gray-300">Provide immediate launch support, release frequent free content updates (including multiplayer co-op), develop paid expansions, and begin pre-production for the next title.</p>
+                        <p class="text-gray-300">Provide immediate launch support, release frequent free content updates
+                            (including multiplayer co-op), develop paid expansions, and begin pre-production for the
+                            next title.</p>
                     </div>
                 </div>
             </div>
@@ -389,7 +514,10 @@
 
         <section id="financials" class="content-section">
             <h2 class="text-4xl font-bold mb-4">The Financials: Investment & Projections</h2>
-            <p class="text-lg mb-8 text-gray-400">We are seeking **$2,521,806** to fund 3 years of operations. This provides a robust runway to develop and launch "Darkness From Within" within 15 months, deliver significant post-launch content, and ensure studio sustainability while awaiting profitability in Year 2.</p>
+            <p class="text-lg mb-8 text-gray-400">We are seeking **$2,521,806** to fund 3 years of operations. This
+                provides a robust runway to develop and launch "Darkness From Within" within 15 months, deliver
+                significant post-launch content, and ensure studio sustainability while awaiting profitability in Year
+                2.</p>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="card p-6 rounded-xl">
                     <h3 class="text-2xl font-bold mb-4 text-center">Funding Allocation</h3>
@@ -401,24 +529,36 @@
                     <h3 class="text-2xl font-bold mb-4">Key Financial Points</h3>
                     <ul class="space-y-4">
                         <li class="flex items-start">
-                            <div class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">1</div>
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">
+                                1</div>
                             <div>
                                 <h4 class="font-bold mb-1">Personnel is Key</h4>
-                                <p class="text-gray-300">The majority of funding (70.9%) is allocated to personnel, securing top talent for development, marketing, and operations. This is our core investment in the studio's future.</p>
+                                <p class="text-gray-300">The majority of funding (70.9%) is allocated to personnel,
+                                    securing top talent for development, marketing, and operations. This is our core
+                                    investment in the studio's future.</p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <div class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">2</div>
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">
+                                2</div>
                             <div>
                                 <h4 class="font-bold mb-1">Strategic Marketing</h4>
-                                <p class="text-gray-300">A significant portion (10.1%) is dedicated to a robust marketing campaign, including social media, influencer partnerships, and attendance at key industry events to build hype and a strong community.</p>
+                                <p class="text-gray-300">A significant portion (10.1%) is dedicated to a robust
+                                    marketing campaign, including social media, influencer partnerships, and attendance
+                                    at key industry events to build hype and a strong community.</p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <div class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">3</div>
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-[#EF4444] text-gray-900 rounded-full flex items-center justify-center font-bold text-sm mr-3 mt-1">
+                                3</div>
                             <div>
                                 <h4 class="font-bold mb-1">Post-Launch Support</h4>
-                                <p class="text-gray-300">Funding includes a dedicated budget for post-launch content development (free updates and expansions), ensuring long-term player engagement and revenue streams.</p>
+                                <p class="text-gray-300">Funding includes a dedicated budget for post-launch content
+                                    development (free updates and expansions), ensuring long-term player engagement and
+                                    revenue streams.</p>
                             </div>
                         </li>
                     </ul>
@@ -426,7 +566,9 @@
             </div>
             <div class="card p-6 rounded-xl mt-8">
                 <h3 class="text-2xl font-bold mb-4 text-center">Revenue Projections</h3>
-                <p class="text-gray-400 text-center mb-6">Our projections are based on conservative sales estimates for a high-quality indie title. We project to become profitable in Year 2 and generate significant returns for investors in Year 3 and beyond.</p>
+                <p class="text-gray-400 text-center mb-6">Our projections are based on conservative sales estimates for
+                    a high-quality indie title. We project to become profitable in Year 2 and generate significant
+                    returns for investors in Year 3 and beyond.</p>
                 <div class="chart-container">
                     <canvas id="projectionsChart"></canvas>
                 </div>
@@ -435,10 +577,13 @@
 
         <section id="investment" class="content-section">
             <h2 class="text-4xl font-bold mb-4">Investment Tiers: Partner with Us</h2>
-            <p class="text-lg mb-8 text-gray-400">We invite you to be a part of our journey and share in the success of "Darkness From Within." To accommodate all levels of support, we have created several investment tiers, from our new Supporter Tier to the exclusive Platinum Tier.</p>
-            
+            <p class="text-lg mb-8 text-gray-400">We invite you to be a part of our journey and share in the success of
+                "Darkness From Within." To accommodate all levels of support, we have created several investment tiers,
+                from our new Supporter Tier to the exclusive Platinum Tier.</p>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Supporter" data-amount="100" data-physical-rewards="false">
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Supporter" data-amount="100"
+                    data-physical-rewards="false">
                     <div>
                         <h3 class="text-xl font-bold mb-3">Supporter Tier ($100)</h3>
                         <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
@@ -446,9 +591,12 @@
                             <li>A personalized digital thank-you note from the team.</li>
                         </ul>
                     </div>
-                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                    <button
+                        class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get
+                        Started</button>
                 </div>
-                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Bronze" data-amount="1000" data-physical-rewards="false">
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Bronze" data-amount="1000"
+                    data-physical-rewards="false">
                     <div>
                         <h3 class="text-xl font-bold mb-3">Bronze Tier ($1,000)</h3>
                         <ul class="list-disc list-inside text-gray-300 space-y-1 mb-4">
@@ -456,9 +604,12 @@
                             <li>A personalized thank-you message from the development team.</li>
                         </ul>
                     </div>
-                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                    <button
+                        class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get
+                        Started</button>
                 </div>
-                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Silver" data-amount="5000" data-physical-rewards="false">
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Silver" data-amount="5000"
+                    data-physical-rewards="false">
                     <div>
                         <h3 class="text-xl font-bold mb-3">Silver Tier ($5,000)</h3>
                         <p class="text-[#EF4444] font-medium mb-2">Includes all Bronze Tier rewards, plus:</p>
@@ -468,9 +619,12 @@
                             <li>A digital signed copy of the game by James Jukiewicz.</li>
                         </ul>
                     </div>
-                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                    <button
+                        class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get
+                        Started</button>
                 </div>
-                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Gold" data-amount="10000" data-physical-rewards="true">
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Gold" data-amount="10000"
+                    data-physical-rewards="true">
                     <div>
                         <h3 class="text-xl font-bold mb-3">Gold Tier ($10,000)</h3>
                         <p class="text-[#EF4444] font-medium mb-2">Includes all Silver Tier rewards, plus:</p>
@@ -480,9 +634,12 @@
                             <li>A personal video message from the team, offering an exclusive look at the studio.</li>
                         </ul>
                     </div>
-                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                    <button
+                        class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get
+                        Started</button>
                 </div>
-                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Legend" data-amount="15000" data-physical-rewards="true">
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Legend" data-amount="15000"
+                    data-physical-rewards="true">
                     <div>
                         <h3 class="text-xl font-bold mb-3">Legend Tier (Limited to 25) ($15,000)</h3>
                         <p class="text-[#EF4444] font-medium mb-2">Includes all Gold Tier rewards, plus:</p>
@@ -492,9 +649,12 @@
                             <li>A special in-game item or weapon named after you.</li>
                         </ul>
                     </div>
-                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                    <button
+                        class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get
+                        Started</button>
                 </div>
-                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Archon" data-amount="20000" data-physical-rewards="true">
+                <div class="card p-6 rounded-xl flex flex-col justify-between" data-tier="Archon" data-amount="20000"
+                    data-physical-rewards="true">
                     <div>
                         <h3 class="text-xl font-bold mb-3">Archon Tier (Limited to 25) ($20,000)</h3>
                         <p class="text-[#EF4444] font-medium mb-2">Includes all Legend Tier rewards, plus:</p>
@@ -504,11 +664,14 @@
                             <li>An exclusive physical statue of an in-game character, signed by the team.</li>
                         </ul>
                     </div>
-                    <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                    <button
+                        class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get
+                        Started</button>
                 </div>
             </div>
-            
-            <div class="card p-6 rounded-xl flex flex-col justify-between mt-6" data-tier="Platinum" data-amount="50000" data-physical-rewards="true">
+
+            <div class="card p-6 rounded-xl flex flex-col justify-between mt-6" data-tier="Platinum" data-amount="50000"
+                data-physical-rewards="true">
                 <div>
                     <h3 class="text-xl font-bold mb-3">Platinum Tier ($50,000+)</h3>
                     <p class="text-[#EF4444] font-medium mb-2">Includes all Archon Tier rewards, plus:</p>
@@ -519,25 +682,29 @@
                         <li>Invitation to an exclusive launch event or virtual Q&A session with the full team.</li>
                     </ul>
                 </div>
-                <button class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get Started</button>
+                <button
+                    class="bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold py-3 px-6 rounded-lg transition duration-300 mt-auto get-started-btn">Get
+                    Started</button>
             </div>
 
 
             <div class="card p-6 rounded-xl mt-8">
                 <h3 class="text-2xl font-bold mb-4">Current Investors</h3>
-                <p class="text-gray-400 mb-4">See who has already joined us on this journey. This list is updated in real-time as we secure new funding.</p>
+                <p class="text-gray-400 mb-4">See who has already joined us on this journey. This list is updated in
+                    real-time as we secure new funding.</p>
                 <div class="bg-gray-800 p-4 rounded-lg">
                     <ul id="investor-list" class="space-y-2 text-gray-300">
-                        </ul>
+                    </ul>
                 </div>
                 <p class="text-xs text-gray-500 mt-4">Your User ID: <span id="user-id-display">Loading...</span></p>
             </div>
         </section>
-        
+
         <div id="payment-modal" class="modal-overlay">
             <div class="modal-content">
                 <span class="modal-close-btn">&times;</span>
-                <h3 class="text-2xl font-bold mb-4">Invest in <span id="modal-tier-title" class="text-[#EF4444]"></span></h3>
+                <h3 class="text-2xl font-bold mb-4">Invest in <span id="modal-tier-title" class="text-[#EF4444]"></span>
+                </h3>
                 <p class="text-gray-400 mb-4">Please enter your contact details to express your interest.</p>
                 <form id="payment-form">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -549,37 +716,64 @@
                             <label for="email-address" class="block text-sm font-medium mb-1">Email Address</label>
                             <input type="email" id="email-address" name="emailAddress" class="form-input" required>
                         </div>
-                        
+
                     </div>
                     <div id="physical-address-container" class="mb-6">
                         <label for="physical-address" class="block text-sm font-medium mb-1">Physical Address</label>
-                        <textarea id="physical-address" name="physicalAddress" rows="3" class="form-textarea" required></textarea>
+                        <textarea id="physical-address" name="physicalAddress" rows="3" class="form-textarea"
+                            required></textarea>
                     </div>
-                    
-                    
+
+
                     <div class="relative flex py-4 items-center">
                         <div class="flex-grow border-t border-gray-600"></div>
                         <span class="flex-shrink mx-4 text-gray-400">Or</span>
                         <div class="flex-grow border-t border-gray-600"></div>
                     </div>
-                    <button type="button" class="w-full bg-[#003087] text-white font-bold py-3 px-6 rounded-xl hover:bg-[#00296b] transition-colors flex items-center justify-center">
-                        <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.644 4.072C7.514 3.82 7.234 3.75 7.044 3.75H4.294C3.994 3.75 3.744 3.99 3.824 4.28L5.754 11.23C5.824 11.49 6.064 11.68 6.334 11.68H9.314C12.334 11.68 14.194 10.01 13.544 7.21C13.104 5.25 10.964 4.07 7.644 4.07Z" fill="#009cde"/>
-                            <path d="M6.354 12.182C6.224 11.93 5.944 11.86 5.754 11.86H3C2.7 11.86 2.45 12.1 2.53 12.39L4.46 19.34C4.53 19.6 4.77 19.79 5.04 19.79H7.79C8.09 19.79 8.34 19.55 8.26 19.26L6.354 12.182Z" fill="#002f86"/>
-                            <path d="M15.224 10.792L14.734 13.252C14.654 13.602 14.904 13.912 15.264 13.912H15.544C15.864 13.912 16.144 13.682 16.214 13.362L16.514 11.962C16.544 11.792 16.694 11.682 16.864 11.682H17.384C20.404 11.682 22.264 10.012 21.614 7.212C21.174 5.252 19.034 4.072 15.714 4.072H12.964C12.664 4.072 12.414 4.312 12.494 4.602L15.224 10.792Z" fill="#009cde"/>
-                            <path d="M14.28 12.182L15.26 16.79C15.33 17.05 15.57 17.24 15.84 17.24H18.59C18.89 17.24 19.14 17 19.06 16.71L17.13 9.76C17.06 9.5 16.82 9.31 16.55 9.31H13.8C13.5 9.31 13.25 9.55 13.33 9.84L14.28 12.182Z" fill="#002f86"/>
-                        <div id="paypal-container-AS6YUNF7Q5YWS"></div>
-<style>.pp-3S2FGUYJRZ8XE{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
-<div id="paypal-button-container"></div>
+                    <button type="button"
+                        class="w-full bg-[#003087] text-white font-bold py-3 px-6 rounded-xl hover:bg-[#00296b] transition-colors flex items-center justify-center">
+                        <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.644 4.072C7.514 3.82 7.234 3.75 7.044 3.75H4.294C3.994 3.75 3.744 3.99 3.824 4.28L5.754 11.23C5.824 11.49 6.064 11.68 6.334 11.68H9.314C12.334 11.68 14.194 10.01 13.544 7.21C13.104 5.25 10.964 4.07 7.644 4.07Z"
+                                fill="#009cde" />
+                            <path
+                                d="M6.354 12.182C6.224 11.93 5.944 11.86 5.754 11.86H3C2.7 11.86 2.45 12.1 2.53 12.39L4.46 19.34C4.53 19.6 4.77 19.79 5.04 19.79H7.79C8.09 19.79 8.34 19.55 8.26 19.26L6.354 12.182Z"
+                                fill="#002f86" />
+                            <path
+                                d="M15.224 10.792L14.734 13.252C14.654 13.602 14.904 13.912 15.264 13.912H15.544C15.864 13.912 16.144 13.682 16.214 13.362L16.514 11.962C16.544 11.792 16.694 11.682 16.864 11.682H17.384C20.404 11.682 22.264 10.012 21.614 7.212C21.174 5.252 19.034 4.072 15.714 4.072H12.964C12.664 4.072 12.414 4.312 12.494 4.602L15.224 10.792Z"
+                                fill="#009cde" />
+                            <path
+                                d="M14.28 12.182L15.26 16.79C15.33 17.05 15.57 17.24 15.84 17.24H18.59C18.89 17.24 19.14 17 19.06 16.71L17.13 9.76C17.06 9.5 16.82 9.31 16.55 9.31H13.8C13.5 9.31 13.25 9.55 13.33 9.84L14.28 12.182Z"
+                                fill="#002f86" />
+                            <div id="paypal-container-AS6YUNF7Q5YWS"></div>
+                            <style>
+                                .pp-3S2FGUYJRZ8XE {
+                                    text-align: center;
+                                    border: none;
+                                    border-radius: 0.25rem;
+                                    min-width: 11.625rem;
+                                    padding: 0 2rem;
+                                    height: 2.625rem;
+                                    font-weight: bold;
+                                    background-color: #FFD140;
+                                    color: #000000;
+                                    font-family: "Helvetica Neue", Arial, sans-serif;
+                                    font-size: 1rem;
+                                    line-height: 1.25rem;
+                                    cursor: pointer;
+                                }
+                            </style>
+                            <div id="paypal-button-container"></div>
                         </svg>
                         <span>Pay with PayPal</span>
                     </button>
-                    </form>
+                </form>
             </div>
         </div>
-        
+
     </main>
-    
+
     <div id="message-box" class="message-box">
         <p id="message-text"></p>
     </div>
@@ -589,10 +783,10 @@
 
         // Navigation and Section Logic
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
-                
+
                 // Deactivate all sections and links
                 document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
                 document.querySelectorAll('.nav-link').forEach(navLink => navLink.classList.remove('active'));
@@ -602,10 +796,10 @@
                 this.classList.add('active');
             });
         });
-        
+
         // Game Tab Logic
         document.querySelectorAll('.tab-button').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 // Deactivate all tab buttons and panes
                 document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
                 document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
@@ -616,7 +810,7 @@
                 document.getElementById(tabId + '-content').classList.remove('hidden');
             });
         });
-        
+
         // --- Chart.js Initialization and Data ---
 
         const primaryRed = '#EF4444';
@@ -654,7 +848,7 @@
                         },
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     let label = context.label || '';
                                     if (label) {
                                         label += ': ';
@@ -670,7 +864,7 @@
                 }
             });
         }
-        
+
         function createFundingChart() {
             const ctx = document.getElementById('fundingChart').getContext('2d');
             new Chart(ctx, {
@@ -767,7 +961,7 @@
                                 font: {
                                     family: 'Inter, sans-serif'
                                 },
-                                callback: function(value) {
+                                callback: function (value) {
                                     return '$' + value + 'M';
                                 }
                             }
@@ -776,7 +970,7 @@
                 }
             });
         }
-        
+
         // Function to draw icons on canvas elements
         function drawIcons() {
             document.querySelectorAll('.nav-icon').forEach(canvas => {
@@ -787,7 +981,7 @@
                 ctx.strokeStyle = "#E5E7EB";
                 ctx.lineWidth = 2;
 
-                switch(iconType) {
+                switch (iconType) {
                     case 'studio':
                         ctx.beginPath();
                         ctx.moveTo(2, 18);
@@ -871,7 +1065,7 @@
         }
 
         // --- Payment Modal and Form Logic ---
-        
+
         const paymentModal = document.getElementById('payment-modal');
         const paymentForm = document.getElementById('payment-form');
         const modalTierTitle = document.getElementById('modal-tier-title');
@@ -888,7 +1082,7 @@
 
                 modalTierTitle.textContent = `${selectedTier} Tier`;
                 paymentModal.style.display = 'flex';
-                
+
                 // Show or hide the physical address field based on the tier
                 if (hasPhysicalRewards) {
                     physicalAddressContainer.style.display = 'block';
@@ -911,62 +1105,99 @@
                 paymentModal.style.display = 'none';
             }
         });
-        
+
         // Handle form submission
         paymentForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             // This is a placeholder for a confirmation message
             alert(`Thank you for your interest in the ${selectedTier} Tier!`);
-            
+
             // Close the modal and reset the form
             paymentModal.style.display = 'none';
             paymentForm.reset();
         });
 
         // Main initialization function
-        window.onload = function() {
+        window.onload = function () {
             // Initialize charts and icons
             createMarketChart();
             createFundingChart();
             createProjectionsChart();
             drawIcons();
-            
-            // Populate the placeholder investor list
-            const investorList = document.getElementById('investor-list');
-            investorList.innerHTML = '<li>John Doe ($1,000) - Bronze Tier</li><li>Jane Smith ($5,000) - Silver Tier</li>';
-            
+
+            // Populate the dynamic investor list on page load
+            loadInvestors();
+
             // Hide the user ID display as it's no longer functional
             const userIdDisplay = document.getElementById('user-id-display').parentElement;
             userIdDisplay.style.display = 'none';
         };
-        // Add this to your existing <script> block
 
-// Function to render the PayPal button
-function renderPayPalButton(tierAmount) {
-    paypal.Buttons({
-        createOrder: function(data, actions) {
-            // Set up the transaction details
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: tierAmount // Use the dynamic amount
-                    }
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            // Capture the funds from the transaction
-            return actions.order.capture().then(function(details) {
-                // Show a success message to the user
-                alert('Transaction completed by ' + details.payer.name.given_name + '!');
+        // Function to render the PayPal button
+        function renderPayPalButton(tierAmount) {
+            paypal.Buttons({
+                createOrder: function (data, actions) {
+                    // Set up the transaction details
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: tierAmount // Use the dynamic amount
+                            }
+                        }]
+                    });
+                },
+                onApprove: function (data, actions) {
+                    // Capture the funds from the transaction
+                    return actions.order.capture().then(function (details) {
+                        // Get the payer's name and email
+                        const fullName = details.payer.name.given_name + ' ' + details.payer.name.surname;
+                        const email = details.payer.email_address;
 
-                // Here you would send the transaction details to your server for verification
-                // and fulfill the investor's rewards.
-            });
+                        // Save the investor data
+                        saveInvestor(fullName, selectedTier, selectedAmount);
+
+                        // Update the displayed investor list
+                        loadInvestors();
+
+                        // Show a success message to the user
+                        alert('Transaction completed by ' + fullName + '!');
+                    });
+                }
+            }).render('#paypal-button-container'); // Renders the button into the container
         }
-    }).render('#paypal-button-container'); // Renders the button into the container
-}
+        // Function to save investor data to local storage
+        function saveInvestor(name, tier, amount) {
+            let investors = JSON.parse(localStorage.getItem('investors')) || [];
+
+            const newInvestor = {
+                name: name,
+                tier: tier,
+                amount: amount
+            };
+
+            investors.push(newInvestor);
+            localStorage.setItem('investors', JSON.stringify(investors));
+        }
+
+        // Function to load and display investor data from local storage
+        function loadInvestors() {
+            const investorList = document.getElementById('investor-list');
+            investorList.innerHTML = ''; // Clear the existing list
+
+            let investors = JSON.parse(localStorage.getItem('investors')) || [];
+
+            if (investors.length > 0) {
+                investors.forEach(investor => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${investor.name} ($${investor.amount}) - ${investor.tier} Tier`;
+                    investorList.appendChild(listItem);
+                });
+            } else {
+                investorList.innerHTML = '<li>No investors have contributed yet. Be the first!</li>';
+            }
+        }
     </script>
 </body>
+
 </html>
