@@ -1298,6 +1298,22 @@
                 }
             }).render('#paypal-button-container'); // Renders the button into the container
         }
+        function openPaymentModal(tierName, tierAmount) {
+            const modal = document.getElementById('payment-modal');
+            const tierTitle = document.getElementById('modal-tier-title');
+            const tierPrice = document.getElementById('modal-tier-price');
+
+            selectedTier = tierName;
+
+            tierTitle.textContent = tierName;
+            tierPrice.textContent = `$${tierAmount}`;
+
+            // Show the modal
+            modal.style.display = 'block';
+
+            // Now that the modal is visible, render the PayPal button
+            renderPayPalButton(tierAmount);
+        }
         // Function to save investor data to local storage
         function saveInvestor(name, tier, amount) {
             let investors = JSON.parse(localStorage.getItem('investors')) || [];
