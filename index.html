@@ -11,7 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nosifier&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://www.paypal.com/sdk/js?client-id=AS6YUNF7Q5YWS"></script>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=BAA3w2vgTSEUr3rhiiZ-Y3ggxP14Nmhp4gRMpWHL1KEG57EpierXyaZUvNVp-fa24wJhW55LpOmmX4sKS0&components=hosted-buttons&enable-funding=venmo&currency=USD">
+        </script>
 
 
     <style>
@@ -853,25 +855,12 @@
                             <path
                                 d="M14.28 12.182L15.26 16.79C15.33 17.05 15.57 17.24 15.84 17.24H18.59C18.89 17.24 19.14 17 19.06 16.71L17.13 9.76C17.06 9.5 16.82 9.31 16.55 9.31H13.8C13.5 9.31 13.25 9.55 13.33 9.84L14.28 12.182Z"
                                 fill="#002f86" />
-                            <div id="paypal-container-AS6YUNF7Q5YWS"></div>
-                            <style>
-                                .pp-3S2FGUYJRZ8XE {
-                                    text-align: center;
-                                    border: none;
-                                    border-radius: 0.25rem;
-                                    min-width: 11.625rem;
-                                    padding: 0 2rem;
-                                    height: 2.625rem;
-                                    font-weight: bold;
-                                    background-color: #FFD140;
-                                    color: #000000;
-                                    font-family: "Helvetica Neue", Arial, sans-serif;
-                                    font-size: 1rem;
-                                    line-height: 1.25rem;
-                                    cursor: pointer;
-                                }
-                            </style>
-                            <div id="paypal-button-container"></div>
+                            <div id="paypal-container-LSBMB8KRVUM8U"></div>
+                            <script>
+                                paypal.HostedButtons({
+                                    hostedButtonId: "LSBMB8KRVUM8U",
+                                }).render("#paypal-container-LSBMB8KRVUM8U")
+                            </script>
                         </svg>
                         <span>Pay with PayPal</span>
                     </button>
